@@ -215,7 +215,25 @@
 .gg-btn__icon {
   display: inline-flex;
   flex: 0 0 auto;
+  align-items: center;
   transition: transform 0.4s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.gg-btn__icon svg,
+.gg-btn__icon img {
+  width: 18px;
+  height: 10px;
+  display: block;
+}
+
+.gg-btn__icon img {
+  height: auto;
+  max-height: 18px;
+  object-fit: contain;
+}
+
+.gg-header-bar__menu {
+  display: none;
 }
 
 .gg-btn--choose {
@@ -323,61 +341,86 @@
 }
 
 @media screen and (max-width: 749px) {
-  .gg-banner__top {
+  .gg-header-bar .gg-banner__top {
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "brand action"
-      "tagline tagline";
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
     align-items: center;
-    row-gap: 8px;
-    min-height: 0;
-    padding-block: 14px;
+    gap: 0;
+    min-height: 52px;
+    padding: 4px 4px;
   }
 
-  .gg-banner__brand { grid-area: brand; }
-  .gg-banner__actions { grid-area: action; justify-self: end; }
-  .gg-banner__tagline {
-    position: static;
-    grid-area: tagline;
-    transform: none;
-    max-width: none;
-    font-size: 12px;
-  }
-
-  .gg-banner__hero {
+  .gg-header-bar__menu {
     display: flex;
-    flex-direction: column;
-    min-height: 0;
+    grid-column: 1;
+    align-items: center;
   }
 
-  .gg-banner__art {
-    position: relative;
-    height: 230px;
+  .gg-header-bar__menu header-drawer {
+    margin-left: 0;
+    justify-self: center;
   }
 
-  .gg-banner__scrim {
+  .gg-header-bar .gg-banner__brand {
+    grid-column: 2;
+    justify-self: center;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-align: center;
+  }
+
+  .gg-header-bar .gg-banner__tagline,
+  .gg-header-bar .gg-banner__actions {
     display: none;
   }
 
+  .gg-banner__hero {
+    min-height: 360px;
+  }
+
+  .gg-banner__scrim {
+    top: 0;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 48%, var(--gg-bg) 0%, var(--gg-bg) 36%, transparent 72%);
+  }
+
   .gg-banner__content {
-    padding: 28px var(--gg-gutter) 36px;
-    max-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 280px;
+    margin-inline: auto;
+    padding: 86px 16px 40px;
+    text-align: center;
+  }
+
+  .gg-banner__heading {
+    font-size: 26px;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
   }
 
   .gg-banner__description {
-    max-width: 46ch;
+    max-width: 30ch;
+    margin: 0 auto 16px;
+    font-size: 12px;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .gg-banner .gg-btn--shop {
+    min-height: 36px;
+    padding: 10px 14px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    gap: 10px;
   }
 
   .gg-banner__strip-text {
-    letter-spacing: 0.08em;
-    font-size: 10px;
-  }
-
-  .gg-btn {
-    min-height: 40px;
-    padding: 10px 12px;
-    letter-spacing: 0.08em;
+    padding: 10px 16px;
+    letter-spacing: 0.12em;
+    font-size: 9px;
   }
 }
 

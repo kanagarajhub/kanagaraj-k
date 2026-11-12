@@ -195,17 +195,23 @@
       </button>
       <div class="gg-modal__layout">
         <div class="gg-modal__media" data-gg-media></div>
-        <div class="gg-modal__info">
+        <div class="gg-modal__copy">
           <h3 class="gg-modal__title" id="GiftGuideTitle-{{ section.id }}" data-gg-title></h3>
           <p class="gg-modal__price" data-gg-price></p>
           <p class="gg-modal__description" data-gg-description></p>
+        </div>
+        <div class="gg-modal__form">
           <div data-gg-options></div>
           <p class="gg-modal__message" data-gg-message hidden></p>
           <button type="button" class="gg-btn gg-btn--cart gg-btn--fill" data-gg-add>
             <span class="gg-btn__label" data-gg-add-label>{{ section.settings.add_label | escape }}</span>
-            <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
-              <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
-            </svg>
+            {%- unless section.settings.arrow_source == 'none' -%}
+              {% render 'ecom-guide-arrow',
+                source: section.settings.arrow_source,
+                svg: section.settings.arrow_svg,
+                image: section.settings.arrow_image
+              %}
+            {%- endunless -%}
           </button>
         </div>
       </div>
@@ -274,6 +280,20 @@
     { "type": "color", "id": "accent_color", "label": "Selected option accent", "default": "#2F6BFF" },
     { "type": "color", "id": "overlay_color", "label": "Overlay", "default": "#6E6E6E" },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 1, "unit": "%", "label": "Overlay opacity", "default": 46 },
+    {
+      "type": "select",
+      "id": "arrow_source",
+      "label": "Button arrow",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Built-in arrow" },
+        { "value": "svg", "label": "Custom SVG" },
+        { "value": "image", "label": "Image" },
+        { "value": "none", "label": "None" }
+      ]
+    },
+    { "type": "textarea", "id": "arrow_svg", "label": "Arrow SVG", "info": "Paste SVG markup. Used when Button arrow is Custom SVG." },
+    { "type": "image_picker", "id": "arrow_image", "label": "Arrow image", "info": "Used when Button arrow is Image." },
     { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to cart" },
     { "type": "text", "id": "adding_label", "label": "Adding label", "default": "Adding…" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },

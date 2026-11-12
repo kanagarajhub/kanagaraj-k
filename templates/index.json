@@ -165,7 +165,7 @@
         "heading_size": 36,
         "background": "#FFFFFF",
         "columns_desktop": 3,
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "image_ratio": "photo",
         "gap": 18,
         "card_radius": 0,
