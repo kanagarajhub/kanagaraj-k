@@ -146,7 +146,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.settings.show_store_header %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -164,6 +164,7 @@
       assign language_selector = true
     endif
   -%}
+  {%- if section.settings.show_store_header -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
     {%- liquid
       assign render_search_left = false
@@ -319,6 +320,75 @@
       {%- endif -%}
     </div>
   </header>
+  {%- endif -%}
+
+  {%- liquid
+    assign gift_cta_link = section.settings.gift_cta_link | strip
+    if gift_cta_link == blank or gift_cta_link contains 'javascript:'
+      assign gift_cta_link = '#ecom-guide-grid'
+    endif
+    assign show_guide_bar = false
+    if section.settings.show_guide_bar
+      if section.settings.gift_brand_text != blank or section.settings.gift_tagline != blank or section.settings.gift_cta_label != blank
+        assign show_guide_bar = true
+      endif
+    endif
+  -%}
+  {%- if show_guide_bar -%}
+    {{ 'section-ecom-guide-banner.css' | asset_url | stylesheet_tag }}
+    <div
+      class="gg-banner gg-header-bar"
+      style="--gg-text: {{ section.settings.gift_text_color }}; --gg-muted: {{ section.settings.gift_muted_color }}; --gg-brand-size: {{ section.settings.gift_brand_size }}px; --gg-tagline-size: {{ section.settings.gift_tagline_size }}px; --gg-top-bg: {{ section.settings.gift_bar_background }};"
+    >
+      <div class="gg-banner__top" style="background: {{ section.settings.gift_bar_background }};">
+        {%- if section.settings.gift_brand_text != blank -%}
+          {%- if section.settings.gift_brand_link != blank -%}
+            <a class="gg-banner__brand{% if section.settings.gift_brand_uppercase %} is-upper{% endif %}" href="{{ section.settings.gift_brand_link }}">
+              {{ section.settings.gift_brand_text | escape }}
+            </a>
+          {%- else -%}
+            <span class="gg-banner__brand{% if section.settings.gift_brand_uppercase %} is-upper{% endif %}">
+              {{ section.settings.gift_brand_text | escape }}
+            </span>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if section.settings.gift_tagline != blank -%}
+          <p class="gg-banner__tagline">{{ section.settings.gift_tagline | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.gift_cta_label != blank -%}
+          <div class="gg-banner__actions">
+            <a
+              class="gg-btn gg-btn--choose gg-btn--{{ section.settings.gift_cta_animation }}"
+              href="{{ gift_cta_link }}"
+              style="--gg-btn-bg: {{ section.settings.gift_cta_background }}; --gg-btn-text: {{ section.settings.gift_cta_text }}; --gg-btn-hover-bg: {{ section.settings.gift_cta_hover_background }}; --gg-btn-hover-text: {{ section.settings.gift_cta_hover_text }};"
+              {% if gift_cta_link contains '#' %}data-gg-scroll{% endif %}
+            >
+              <span class="gg-btn__label">{{ section.settings.gift_cta_label | escape }}</span>
+              <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
+                <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
+              </svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    <script>
+      (function () {
+        document.querySelectorAll('[data-gg-scroll]').forEach(function (link) {
+          if (link.dataset.ggBound === 'true') return;
+          link.dataset.ggBound = 'true';
+          link.addEventListener('click', function (event) {
+            var id = (link.getAttribute('href') || '').split('#')[1];
+            var target = id && document.getElementById(id);
+            if (!target) return;
+            event.preventDefault();
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+          });
+        });
+      })();
+    </script>
+  {%- endif -%}
 </{{ header_tag }}>
 
 {%- if settings.cart_type == 'notification' -%}
@@ -508,10 +578,137 @@
   "settings": [
     {
       "type": "checkbox",
+      "id": "show_store_header",
+      "label": "Show store header",
+      "default": false,
+      "info": "Turn off to hide the logo, menu, search, account, and cart. They stay in the theme."
+    },
+    {
+      "type": "checkbox",
       "id": "show_cart",
       "label": "Show cart",
       "default": true,
-      "info": "Show or hide the cart icon."
+      "info": "Show or hide the cart icon in the store header."
+    },
+    {
+      "type": "header",
+      "content": "Guide bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guide_bar",
+      "label": "Show guide bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gift_brand_text",
+      "label": "Brand",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "url",
+      "id": "gift_brand_link",
+      "label": "Brand link"
+    },
+    {
+      "type": "checkbox",
+      "id": "gift_brand_uppercase",
+      "label": "Uppercase brand",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gift_tagline",
+      "label": "Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "gift_cta_label",
+      "label": "Button label",
+      "default": "Choose gift"
+    },
+    {
+      "type": "text",
+      "id": "gift_cta_link",
+      "label": "Button link",
+      "default": "#ecom-guide-grid",
+      "info": "Use #ecom-guide-grid to scroll to the product grid."
+    },
+    {
+      "type": "select",
+      "id": "gift_cta_animation",
+      "label": "Button animation",
+      "default": "fill",
+      "options": [
+        { "value": "fill", "label": "Fill" },
+        { "value": "arrow", "label": "Arrow" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "none", "label": "None" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "gift_bar_background",
+      "label": "Bar background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "gift_text_color",
+      "label": "Brand color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "gift_muted_color",
+      "label": "Tagline color",
+      "default": "#6D6D6D"
+    },
+    {
+      "type": "color",
+      "id": "gift_cta_background",
+      "label": "Button background",
+      "default": "#FFE135"
+    },
+    {
+      "type": "color",
+      "id": "gift_cta_text",
+      "label": "Button text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "gift_cta_hover_background",
+      "label": "Button hover background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "gift_cta_hover_text",
+      "label": "Button hover text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "gift_brand_size",
+      "label": "Brand size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "gift_tagline_size",
+      "label": "Tagline size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
     },
     {
       "type": "select",
