@@ -222,8 +222,8 @@
 
 .gg-btn__icon svg,
 .gg-btn__icon img {
-  width: 20px;
-  height: 17px;
+  width: 26px;
+  height: 12px;
   display: block;
 }
 
@@ -361,7 +361,13 @@
 
 @media screen and (min-width: 750px) {
   .gg-banner__hero {
+    display: grid;
     min-height: 0;
+  }
+
+  .gg-banner__art,
+  .gg-banner__content {
+    grid-area: 1 / 1;
   }
 
   .gg-banner__art {
@@ -369,11 +375,13 @@
     inset: auto;
     width: 100%;
     height: auto;
+    min-height: 100%;
   }
 
   .gg-banner__art .gg-art-desktop {
     width: 100%;
     height: auto;
+    min-height: 100%;
     object-fit: cover;
   }
 
@@ -385,30 +393,33 @@
   }
 
   .gg-banner__content {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    top: min(clamp(24%, var(--gg-place-y, 54%), 58%), calc(100% - 270px));
+    align-self: end;
+    top: auto;
     width: min(var(--gg-content-width), 490px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
     max-width: min(var(--gg-content-width), 490px);
-    margin: 0;
+    margin: 0 0 clamp(16px, calc((58% - var(--gg-place-y, 54%)) * 0.4), 140px);
     padding: 0;
-    transform: translate(min(var(--gg-nudge-x, 0px), 40px), min(var(--gg-nudge-y, 0px), 16px));
+    transform: translateX(min(var(--gg-nudge-x, 0px), 40px));
+  }
+
+  .gg-banner__description {
+    max-width: 100%;
   }
 
   .gg-banner--x-left .gg-banner__content {
-    left: max(16px, min(var(--gg-gutter), 5vw));
-    right: auto;
+    justify-self: start;
+    margin-left: max(16px, min(var(--gg-gutter), 5vw));
   }
 
   .gg-banner--x-center .gg-banner__content {
-    left: 50%;
-    right: auto;
-    transform: translate(calc(-50% + min(var(--gg-nudge-x, 0px), 40px)), min(var(--gg-nudge-y, 0px), 16px));
+    justify-self: center;
   }
 
   .gg-banner--x-right .gg-banner__content {
-    left: auto;
-    right: max(16px, min(var(--gg-gutter), 5vw));
+    justify-self: end;
+    margin-right: max(16px, min(var(--gg-gutter), 5vw));
   }
 
   .gg-banner--align-center .gg-banner__content,
@@ -661,6 +672,50 @@
   .gg-header-bar.gg-banner--container .gg-banner__top {
     width: min(1300px, 100%);
     margin-inline: auto;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .gg-banner h1.gg-banner__heading {
+    font-size: min(var(--gg-heading-size), 32px);
+    margin-bottom: 10px;
+  }
+
+  .gg-banner__description {
+    font-size: min(var(--gg-body-size), 14px);
+    margin-bottom: 16px;
+  }
+
+  .gg-banner .gg-btn--shop {
+    font-size: min(var(--gg-shop-size, 13px), 13px);
+  }
+
+  .gg-header-bar .gg-banner__tagline {
+    display: none;
+  }
+
+  .gg-header-bar .gg-banner__brand {
+    font-size: min(var(--gg-brand-size), 14px);
+  }
+
+  .gg-btn--choose {
+    font-size: min(var(--gg-cta-size, 12px), 12px);
+  }
+}
+
+@media screen and (min-width: 990px) and (max-width: 1199px) {
+  .gg-banner h1.gg-banner__heading {
+    font-size: min(var(--gg-heading-size), 44px);
+    margin-bottom: 12px;
+  }
+
+  .gg-banner__description {
+    font-size: min(var(--gg-body-size), 16px);
+    margin-bottom: 20px;
+  }
+
+  .gg-banner .gg-btn--shop {
+    font-size: min(var(--gg-shop-size, 13px), 14px);
   }
 }
 

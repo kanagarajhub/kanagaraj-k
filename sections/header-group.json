@@ -52,8 +52,6 @@
         "gift_cta_label": "Choose gift",
         "gift_cta_link": "#ecom-guide-grid",
         "gift_cta_animation": "fill",
-        "gift_cta_icon": "default",
-        "gift_cta_svg": "",
         "gift_color_scheme": "scheme-1",
         "gift_muted_color": "#6d6d6d",
         "gift_cta_background": "#fff544",

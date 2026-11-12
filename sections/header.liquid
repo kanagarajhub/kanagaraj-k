@@ -400,13 +400,7 @@
                 {% if gift_cta_link contains '#' %}data-gg-scroll{% endif %}
               >
                 <span class="gg-btn__label">{{ section.settings.gift_cta_label | escape }}</span>
-                {%- unless section.settings.gift_cta_icon == 'none' -%}
-                  {% render 'ecom-guide-arrow',
-                    source: section.settings.gift_cta_icon,
-                    svg: section.settings.gift_cta_svg,
-                    image: section.settings.gift_cta_image
-                  %}
-                {%- endunless -%}
+                {% render 'ecom-guide-arrow' %}
               </a>
             </div>
           {%- endif -%}
@@ -733,30 +727,6 @@
         { "value": "lift", "label": "Lift" },
         { "value": "none", "label": "None" }
       ]
-    },
-    {
-      "type": "select",
-      "id": "gift_cta_icon",
-      "label": "Button arrow",
-      "default": "default",
-      "options": [
-        { "value": "default", "label": "Built-in arrow" },
-        { "value": "svg", "label": "Custom SVG" },
-        { "value": "image", "label": "Image" },
-        { "value": "none", "label": "None" }
-      ]
-    },
-    {
-      "type": "textarea",
-      "id": "gift_cta_svg",
-      "label": "Arrow SVG",
-      "info": "Paste SVG markup. Used when Button arrow is Custom SVG."
-    },
-    {
-      "type": "image_picker",
-      "id": "gift_cta_image",
-      "label": "Arrow image",
-      "info": "Used when Button arrow is Image."
     },
     {
       "type": "header",

@@ -94,13 +94,7 @@
           {% if shop_link contains '#' %}data-gg-scroll{% endif %}
         >
           <span class="gg-btn__label">{{ section.settings.shop_label | escape }}</span>
-          {%- if section.settings.show_arrow -%}
-            {% render 'ecom-guide-arrow',
-              source: section.settings.arrow_source,
-              svg: section.settings.arrow_svg,
-              image: section.settings.arrow_image
-            %}
-          {%- endif -%}
+          {% render 'ecom-guide-arrow' %}
         </a>
       {%- endif -%}
     </div>
@@ -178,20 +172,6 @@
       ]
     },
     { "type": "header", "content": "Button animation" },
-    { "type": "checkbox", "id": "show_arrow", "label": "Show arrow", "default": true },
-    {
-      "type": "select",
-      "id": "arrow_source",
-      "label": "Arrow icon",
-      "default": "default",
-      "options": [
-        { "value": "default", "label": "Built-in arrow" },
-        { "value": "svg", "label": "Custom SVG" },
-        { "value": "image", "label": "Image" }
-      ]
-    },
-    { "type": "textarea", "id": "arrow_svg", "label": "Arrow SVG", "info": "Paste SVG markup. Used when Arrow icon is Custom SVG." },
-    { "type": "image_picker", "id": "arrow_image", "label": "Arrow image", "info": "Used when Arrow icon is Image." },
     {
       "type": "select",
       "id": "button_animation",

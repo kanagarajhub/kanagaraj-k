@@ -205,13 +205,7 @@
           <p class="gg-modal__message" data-gg-message hidden></p>
           <button type="button" class="gg-btn gg-btn--cart gg-btn--fill" data-gg-add>
             <span class="gg-btn__label" data-gg-add-label>{{ section.settings.add_label | escape }}</span>
-            {%- unless section.settings.arrow_source == 'none' -%}
-              {% render 'ecom-guide-arrow',
-                source: section.settings.arrow_source,
-                svg: section.settings.arrow_svg,
-                image: section.settings.arrow_image
-              %}
-            {%- endunless -%}
+            {% render 'ecom-guide-arrow' %}
           </button>
         </div>
       </div>
@@ -285,20 +279,6 @@
     { "type": "header", "content": "Popup" },
     { "type": "range", "id": "popup_width", "min": 320, "max": 520, "step": 10, "unit": "px", "label": "Popup width", "default": 460 },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 70, "step": 1, "unit": "%", "label": "Overlay opacity", "default": 46 },
-    {
-      "type": "select",
-      "id": "arrow_source",
-      "label": "Button arrow",
-      "default": "default",
-      "options": [
-        { "value": "default", "label": "Built-in arrow" },
-        { "value": "svg", "label": "Custom SVG" },
-        { "value": "image", "label": "Image" },
-        { "value": "none", "label": "None" }
-      ]
-    },
-    { "type": "textarea", "id": "arrow_svg", "label": "Arrow SVG", "info": "Paste SVG markup. Used when Button arrow is Custom SVG." },
-    { "type": "image_picker", "id": "arrow_image", "label": "Arrow image", "info": "Used when Button arrow is Image." },
     { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to cart" },
     { "type": "text", "id": "adding_label", "label": "Adding label", "default": "Adding…" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
