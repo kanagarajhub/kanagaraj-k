@@ -30,11 +30,11 @@
   box-sizing: border-box;
 }
 
-.gg-banner h1,
+/* .gg-banner h1,
 .gg-banner p,
 .gg-banner a {
   margin: 0;
-}
+} */
 
 .gg-banner__top {
   position: relative;
