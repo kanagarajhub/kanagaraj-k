@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -26,36 +35,37 @@
         "heading",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,13 +73,149 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "gift_guide_banner_BKwjrr": {
+      "type": "gift-guide-banner",
+      "name": "Gift guide banner",
+      "settings": {
+        "brand_text": "TISSO VISON",
+        "brand_link": "",
+        "brand_uppercase": true,
+        "tagline": "Find the ideal gift for your loved ones.",
+        "choose_label": "Choose gift",
+        "choose_link": "#gift-guide-grid",
+        "heading": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "shop_label": "Shop now",
+        "shop_link": "#gift-guide-grid",
+        "strip_text": "Sustainable, ethically made clothes in sizes XXS to 6XL",
+        "show_line_art": true,
+        "show_arrow": true,
+        "button_animation": "fill",
+        "enable_entrance": true,
+        "strip_marquee": false,
+        "background": "#FFFFFF",
+        "top_background": "#FFFFFF",
+        "text_color": "#111111",
+        "muted_color": "#6D6D6D",
+        "choose_background": "#FFE135",
+        "choose_text": "#111111",
+        "choose_hover_background": "#111111",
+        "choose_hover_text": "#FFFFFF",
+        "shop_background": "#111111",
+        "shop_text": "#FFFFFF",
+        "shop_hover_background": "#FFFFFF",
+        "shop_hover_text": "#111111",
+        "strip_background": "#F3F3F3",
+        "strip_color": "#1A1A1A",
+        "content_alignment": "left",
+        "heading_size": 52,
+        "brand_size": 15,
+        "tagline_size": 13,
+        "body_size": 15,
+        "strip_size": 12,
+        "hero_height": 580,
+        "content_width": 440,
+        "gutter": 40
+      }
+    },
+    "gift_guide_grid_ckELRr": {
+      "type": "gift-guide-grid",
+      "blocks": {
+        "product_GPithw": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_R43Fa9": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_Wgnybr": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_jYfYky": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_nM3yeE": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_6Lrmjj": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_GPithw",
+        "product_R43Fa9",
+        "product_Wgnybr",
+        "product_jYfYky",
+        "product_nM3yeE",
+        "product_6Lrmjj"
+      ],
+      "name": "Gift guide grid",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "heading_alignment": "left",
+        "heading_color": "#161616",
+        "heading_size": 36,
+        "background": "#FFFFFF",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "image_ratio": "photo",
+        "gap": 18,
+        "card_radius": 0,
+        "gutter": 40,
+        "padding_top": 56,
+        "padding_bottom": 72,
+        "enable_animation": true,
+        "plus_background": "#FFFFFF",
+        "plus_color": "#111111",
+        "popup_width": 460,
+        "popup_background": "#FFFFFF",
+        "popup_text": "#161616",
+        "accent_color": "#2F6BFF",
+        "overlay_color": "#6E6E6E",
+        "overlay_opacity": 46,
+        "add_label": "Add to cart",
+        "adding_label": "Adding…",
+        "sold_out_label": "Sold out",
+        "choose_prompt": "Choose your size",
+        "close_label": "Close",
+        "placeholder_message": "Select a product for this block in the theme editor to add it to the cart.",
+        "button_background": "#111111",
+        "button_text": "#FFFFFF",
+        "button_hover_background": "#FFFFFF",
+        "button_hover_text": "#111111",
+        "companion_product": "",
+        "companion_title": "Soft Winter Jacket",
+        "trigger_a": "Black",
+        "trigger_b": "Medium"
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "gift_guide_banner_BKwjrr",
+    "gift_guide_grid_ckELRr"
   ]
 }
