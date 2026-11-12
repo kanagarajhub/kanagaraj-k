@@ -476,9 +476,7 @@
     display: none;
   }
 
-  .gg-banner__art.has-mobile .gg-art-mobile {
-    display: block;
-  }
+ 
 
   .gg-banner__content {
     position: static;
@@ -587,6 +585,11 @@
   .gg-btn::before,
   .gg-btn__icon {
     transition: none;
+  }
+}
+@media screen and (min-width: 991px) {
+ .gg-banner__art.has-mobile .gg-art-mobile {
+    display: block;
   }
 }
 
