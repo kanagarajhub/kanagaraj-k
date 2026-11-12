@@ -84,10 +84,12 @@
       "settings": {
         "heading": "The Gift Guide",
         "description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "description_mobile": "",
         "shop_label": "Shop now",
         "shop_link": "#ecom-guide-grid",
         "strip_text": "Sustainable, ethically made clothes in sizes XXS to 6XL",
         "illustration": "shopify://shop_images/Group_1000008197.png",
+        "illustration_mobile": "shopify://shop_images/Frame_1.png",
         "show_arrow": true,
         "arrow_source": "default",
         "arrow_svg": "",
@@ -118,8 +120,8 @@
         "heading_size": 60,
         "body_size": 15,
         "strip_size": 12,
-        "hero_height": 590,
-        "content_width": 440,
+        "hero_height": 570,
+        "content_width": 470,
         "gutter": 40
       }
     },
