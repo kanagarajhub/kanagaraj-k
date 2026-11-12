@@ -98,7 +98,7 @@
         "color_scheme": "scheme-1",
         "shop_background": "#111111",
         "shop_text": "#ffffff",
-        "shop_hover_background": "#FFF544",
+        "shop_hover_background": "#fff544",
         "shop_hover_text": "#111111",
         "strip_background": "#f5f5f5",
         "strip_color": "#1a1a1a",
@@ -129,7 +129,7 @@
           "type": "product",
           "settings": {
             "product": "black-leather-bag",
-            "plus_x": 82,
+            "plus_x": 60,
             "plus_y": 56
           }
         },
@@ -137,15 +137,15 @@
           "type": "product",
           "settings": {
             "product": "blue-silk-tuxedo",
-            "plus_x": 78,
-            "plus_y": 46
+            "plus_x": 84,
+            "plus_y": 54
           }
         },
         "product_Wgnybr": {
           "type": "product",
           "settings": {
             "product": "chequered-red-shirt",
-            "plus_x": 78,
+            "plus_x": 62,
             "plus_y": 18
           }
         },
@@ -169,7 +169,7 @@
           "type": "product",
           "settings": {
             "product": "dark-denim-top",
-            "plus_x": 86,
+            "plus_x": 80,
             "plus_y": 48
           }
         }
