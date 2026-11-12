@@ -408,7 +408,12 @@
   .gg-banner--align-right .gg-banner__description {
     margin-left: auto;
   }
+  .gg-banner__art .gg-art-mobile {
+    display: none;
+  }
 }
+
+ 
 
 @media screen and (max-width: 749px) {
   .gg-header-bar .gg-banner__top {
