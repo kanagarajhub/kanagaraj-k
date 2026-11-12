@@ -39,7 +39,7 @@
 {%- endstyle -%}
 
 <section
-  class="gg-banner color-{{ section.settings.color_scheme }} gradient gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.description_mobile != blank %} gg-banner--mobile-copy{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
+  class="gg-banner gg-banner--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} gradient gg-banner--ratio-{{ section.settings.image_ratio }} gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.description_mobile != blank %} gg-banner--mobile-copy{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
   aria-label="{{ section.settings.heading | escape }}"
 >
   <div class="gg-banner__hero">
@@ -151,9 +151,32 @@
     { "type": "text", "id": "shop_label", "label": "Shop now label", "default": "Shop now" },
     { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#ecom-guide-grid" },
     { "type": "text", "id": "strip_text", "label": "Bottom bar text", "default": "Sustainable, ethically made clothes in sizes XXS to 6XL" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "default": "container",
+      "info": "Container centers the banner in 1300px. Full width runs edge to edge. Mobile stays full width.",
+      "options": [
+        { "value": "container", "label": "Container" },
+        { "value": "full", "label": "Full width" }
+      ]
+    },
     { "type": "header", "content": "Illustration" },
     { "type": "image_picker", "id": "illustration", "label": "Desktop image", "info": "Shown only on screens wider than 750px. Shopify's placeholder is used until an image is selected." },
     { "type": "image_picker", "id": "illustration_mobile", "label": "Mobile image", "info": "Shown only on screens 750px and smaller. Shopify's placeholder is used until an image is selected." },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
+      "default": "auto",
+      "info": "Auto keeps the image's own ratio. Desktop and Portrait fill a frame and crop with cover.",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "desktop", "label": "Desktop" },
+        { "value": "portrait", "label": "Portrait" }
+      ]
+    },
     { "type": "header", "content": "Button animation" },
     { "type": "checkbox", "id": "show_arrow", "label": "Show arrow", "default": true },
     {

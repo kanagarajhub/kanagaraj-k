@@ -62,7 +62,7 @@
 
 <section
   id="ecom-guide-grid"
-  class="gg-grid color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading_alignment == 'center' %} gg-grid--center{% endif %}{% if section.settings.enable_animation %} gg-grid--animate{% endif %}"
+  class="gg-grid gg-grid--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading_alignment == 'center' %} gg-grid--center{% endif %}{% if section.settings.enable_animation %} gg-grid--animate{% endif %}"
   data-ecom-guide
   data-section-id="{{ section.id }}"
   data-animate="{% if section.settings.enable_animation %}true{% else %}false{% endif %}"
@@ -242,6 +242,17 @@
     { "type": "range", "id": "heading_size", "min": 28, "max": 48, "step": 1, "unit": "px", "label": "Heading size", "default": 36 },
     { "type": "header", "content": "Color scheme" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1", "info": "Sets the background and heading. Buttons, cards, and the popup use the extra colors below." },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "default": "container",
+      "info": "Container centers the grid in 1300px. Full width runs edge to edge. Mobile stays full width.",
+      "options": [
+        { "value": "container", "label": "Container" },
+        { "value": "full", "label": "Full width" }
+      ]
+    },
     { "type": "header", "content": "Grid" },
     { "type": "range", "id": "columns_desktop", "min": 2, "max": 4, "step": 1, "label": "Columns on desktop", "default": 3 },
     {

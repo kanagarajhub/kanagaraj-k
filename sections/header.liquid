@@ -142,11 +142,23 @@
   endif
 %}
 
+{%- style -%}
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .header-wrapper--container .header.page-width {
+      max-width: 1300px;
+    }
+
+    #shopify-section-{{ section.id }} .header-wrapper--full .header.page-width {
+      max-width: none;
+    }
+  }
+{%- endstyle -%}
+
 <{{ header_tag }}
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.settings.show_store_header %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper header-wrapper--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.settings.show_store_header %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -337,7 +349,7 @@
   {%- if show_guide_bar -%}
     {{ 'section-ecom-guide-banner.css' | asset_url | stylesheet_tag }}
     <div
-      class="gg-banner gg-header-bar color-{{ section.settings.gift_color_scheme }} gradient"
+      class="gg-banner gg-header-bar gg-banner--{{ section.settings.section_width }} color-{{ section.settings.gift_color_scheme }} gradient"
       style="--gg-bg: var(--gradient-background); --gg-text: rgb(var(--color-foreground)); --gg-top-bg: var(--gradient-background); --gg-muted: {{ section.settings.gift_muted_color }}; --gg-brand-size: {{ section.settings.gift_brand_size }}px; --gg-logo-width: {{ section.settings.gift_brand_logo_width }}px; --gg-tagline-size: {{ section.settings.gift_tagline_size }}px; --gg-cta-size: {{ section.settings.gift_cta_size }}px;"
     >
       <div class="gg-banner__top">
@@ -636,6 +648,17 @@
       "label": "Show cart",
       "default": true,
       "info": "Show or hide the cart icon on the guide bar. When the store header is on, the cart stays there instead."
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "default": "container",
+      "info": "Container centers the header in 1300px. Full width runs edge to edge. Mobile stays full width.",
+      "options": [
+        { "value": "container", "label": "Container" },
+        { "value": "full", "label": "Full width" }
+      ]
     },
     {
       "type": "header",

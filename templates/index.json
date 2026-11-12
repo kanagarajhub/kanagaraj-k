@@ -88,8 +88,10 @@
         "shop_label": "Shop now",
         "shop_link": "#ecom-guide-grid",
         "strip_text": "Sustainable, ethically made clothes in sizes XXS to 6XL",
+        "section_width": "container",
         "illustration": "shopify://shop_images/Group_1000008197.png",
         "illustration_mobile": "shopify://shop_images/Frame_1.png",
+        "image_ratio": "auto",
         "show_arrow": true,
         "arrow_source": "default",
         "arrow_svg": "",
@@ -175,6 +177,7 @@
       "name": "Ecom guide grid",
       "settings": {
         "heading": "Tisso vison in the wild",
+        "section_width": "container",
         "heading_alignment": "left",
         "heading_size": 36,
         "color_scheme": "scheme-1",

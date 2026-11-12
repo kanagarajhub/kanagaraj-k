@@ -41,6 +41,7 @@
       "settings": {
         "show_store_header": false,
         "show_cart": true,
+        "section_width": "container",
         "show_guide_bar": true,
         "gift_brand_text": "TISSO VISON",
         "gift_brand_link": "",
