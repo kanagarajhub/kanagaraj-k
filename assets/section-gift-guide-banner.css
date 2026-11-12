@@ -1,0 +1,396 @@
+/* Gift guide banner. Uses the theme heading and body fonts. */
+
+.gg-banner {
+  --gg-bg: #fff;
+  --gg-top-bg: #fff;
+  --gg-text: #111;
+  --gg-muted: #6d6d6d;
+  --gg-strip-bg: #f3f3f3;
+  --gg-strip-text: #1a1a1a;
+  --gg-heading-size: 52px;
+  --gg-brand-size: 15px;
+  --gg-body-size: 15px;
+  --gg-strip-size: 12px;
+  --gg-tagline-size: 13px;
+  --gg-hero-min: 580px;
+  --gg-gutter: clamp(20px, 4vw, 48px);
+  --gg-content-width: 440px;
+  background: var(--gg-bg);
+  color: var(--gg-text);
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.gg-banner *,
+.gg-banner *::before,
+.gg-banner *::after {
+  box-sizing: border-box;
+}
+
+.gg-banner h1,
+.gg-banner p,
+.gg-banner a {
+  margin: 0;
+}
+
+.gg-banner__top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+  padding: 12px var(--gg-gutter);
+  background: var(--gg-top-bg);
+}
+
+.gg-banner__brand {
+  font-family: var(--font-heading-family);
+  font-size: var(--gg-brand-size);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: var(--gg-text);
+  text-decoration: none;
+}
+
+.gg-banner__brand.is-upper {
+  text-transform: uppercase;
+}
+
+.gg-banner__tagline {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: min(420px, 42vw);
+  margin: 0;
+  color: var(--gg-muted);
+  font-size: var(--gg-tagline-size);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.gg-banner__hero {
+  position: relative;
+  min-height: var(--gg-hero-min);
+  background: var(--gg-bg);
+  overflow: hidden;
+}
+
+.gg-banner__art {
+  position: absolute;
+  inset: 0;
+  color: var(--gg-text);
+  pointer-events: none;
+}
+
+.gg-banner__art svg,
+.gg-banner__art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.gg-banner__scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 58%;
+  background: linear-gradient(
+    90deg,
+    var(--gg-bg) 0%,
+    var(--gg-bg) 26%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.gg-banner__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--gg-content-width);
+  padding: 250px var(--gg-gutter) 64px;
+}
+
+.gg-banner--center .gg-banner__content {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.gg-banner__heading {
+  margin: 0 0 16px;
+  font-family: var(--font-heading-family);
+  font-size: clamp(34px, 5vw, var(--gg-heading-size));
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: var(--gg-text);
+}
+
+.gg-banner__description {
+  margin: 0 0 26px;
+  max-width: 38ch;
+  font-size: var(--gg-body-size);
+  line-height: 1.5;
+  color: var(--gg-text);
+}
+
+.gg-banner--center .gg-banner__description {
+  margin-inline: auto;
+}
+
+.gg-banner__strip {
+  background: var(--gg-strip-bg);
+  color: var(--gg-strip-text);
+  overflow: hidden;
+}
+
+.gg-banner__strip-text {
+  margin: 0;
+  padding: 12px var(--gg-gutter);
+  font-size: var(--gg-strip-size);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gg-banner__strip--marquee .gg-banner__strip-track {
+  display: flex;
+  width: max-content;
+  animation: gg-marquee 22s linear infinite;
+}
+
+.gg-banner__strip--marquee .gg-banner__strip-text {
+  padding-inline: 32px;
+  white-space: nowrap;
+}
+
+/* Shared button. The arrow and the fill are the hover animation. */
+.gg-btn {
+  --gg-btn-bg: #111;
+  --gg-btn-text: #fff;
+  --gg-btn-hover-bg: #fff;
+  --gg-btn-hover-text: #111;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border: 1px solid var(--gg-btn-bg);
+  background: var(--gg-btn-bg);
+  color: var(--gg-btn-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.35s ease, border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gg-btn__label,
+.gg-btn__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.gg-btn__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  transition: transform 0.4s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.gg-btn--choose {
+  --gg-btn-bg: #ffe135;
+  --gg-btn-text: #111;
+  --gg-btn-hover-bg: #111;
+  --gg-btn-hover-text: #fff;
+  border-color: transparent;
+}
+
+.gg-btn--shop {
+  padding-inline: 22px;
+  min-height: 48px;
+  font-size: 13px;
+}
+
+.gg-btn--fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--gg-btn-hover-bg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.gg-btn--fill:hover::before,
+.gg-btn--fill:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.gg-btn--fill:hover,
+.gg-btn--fill:focus-visible,
+.gg-btn--arrow:hover,
+.gg-btn--arrow:focus-visible {
+  color: var(--gg-btn-hover-text);
+  border-color: var(--gg-btn-hover-bg);
+}
+
+.gg-btn--arrow:hover,
+.gg-btn--arrow:focus-visible {
+  background: var(--gg-btn-hover-bg);
+}
+
+.gg-btn--fill:hover .gg-btn__icon,
+.gg-btn--fill:focus-visible .gg-btn__icon,
+.gg-btn--arrow:hover .gg-btn__icon,
+.gg-btn--arrow:focus-visible .gg-btn__icon {
+  animation: gg-arrow 0.55s ease;
+}
+
+.gg-btn--lift:hover,
+.gg-btn--lift:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+}
+
+.gg-btn--lift:hover .gg-btn__icon,
+.gg-btn--lift:focus-visible .gg-btn__icon {
+  transform: translateX(6px);
+}
+
+.gg-btn:focus-visible {
+  outline: 2px solid var(--gg-text);
+  outline-offset: 3px;
+}
+
+.gg-btn:active {
+  transform: translateY(1px);
+}
+
+.gg-banner--enter .gg-banner__content > * {
+  animation: gg-rise 0.7s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+.gg-banner--enter .gg-banner__content > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.gg-banner--enter .gg-banner__content > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+@keyframes gg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gg-arrow {
+  0% { transform: translateX(0); }
+  45% { transform: translateX(7px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes gg-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media screen and (max-width: 749px) {
+  .gg-banner__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand action"
+      "tagline tagline";
+    align-items: center;
+    row-gap: 8px;
+    min-height: 0;
+    padding-block: 14px;
+  }
+
+  .gg-banner__brand { grid-area: brand; }
+  .gg-banner__actions { grid-area: action; justify-self: end; }
+  .gg-banner__tagline {
+    position: static;
+    grid-area: tagline;
+    transform: none;
+    max-width: none;
+    font-size: 12px;
+  }
+
+  .gg-banner__hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .gg-banner__art {
+    position: relative;
+    height: 230px;
+  }
+
+  .gg-banner__scrim {
+    display: none;
+  }
+
+  .gg-banner__content {
+    padding: 28px var(--gg-gutter) 36px;
+    max-width: none;
+  }
+
+  .gg-banner__description {
+    max-width: 46ch;
+  }
+
+  .gg-banner__strip-text {
+    letter-spacing: 0.08em;
+    font-size: 10px;
+  }
+
+  .gg-btn {
+    min-height: 40px;
+    padding: 10px 12px;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-banner--enter .gg-banner__content > *,
+  .gg-banner__strip--marquee .gg-banner__strip-track,
+  .gg-btn__icon {
+    animation: none !important;
+  }
+
+  .gg-btn,
+  .gg-btn::before,
+  .gg-btn__icon {
+    transition: none;
+  }
+}

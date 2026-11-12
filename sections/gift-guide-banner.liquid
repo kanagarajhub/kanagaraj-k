@@ -1,0 +1,227 @@
+{{ 'section-gift-guide-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign choose_link = section.settings.choose_link | strip
+  assign shop_link = section.settings.shop_link | strip
+  if choose_link == blank or choose_link contains 'javascript:'
+    assign choose_link = '#gift-guide-grid'
+  endif
+  if shop_link == blank or shop_link contains 'javascript:'
+    assign shop_link = '#gift-guide-grid'
+  endif
+  assign animation = section.settings.button_animation
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --gg-bg: {{ section.settings.background }};
+    --gg-top-bg: {{ section.settings.top_background }};
+    --gg-text: {{ section.settings.text_color }};
+    --gg-muted: {{ section.settings.muted_color }};
+    --gg-strip-bg: {{ section.settings.strip_background }};
+    --gg-strip-text: {{ section.settings.strip_color }};
+    --gg-heading-size: {{ section.settings.heading_size }}px;
+    --gg-brand-size: {{ section.settings.brand_size }}px;
+    --gg-body-size: {{ section.settings.body_size }}px;
+    --gg-strip-size: {{ section.settings.strip_size }}px;
+    --gg-tagline-size: {{ section.settings.tagline_size }}px;
+    --gg-hero-min: {{ section.settings.hero_height }}px;
+    --gg-gutter: {{ section.settings.gutter }}px;
+    --gg-content-width: {{ section.settings.content_width }}px;
+  }
+
+  #shopify-section-{{ section.id }} .gg-btn--choose {
+    --gg-btn-bg: {{ section.settings.choose_background }};
+    --gg-btn-text: {{ section.settings.choose_text }};
+    --gg-btn-hover-bg: {{ section.settings.choose_hover_background }};
+    --gg-btn-hover-text: {{ section.settings.choose_hover_text }};
+  }
+
+  #shopify-section-{{ section.id }} .gg-btn--shop {
+    --gg-btn-bg: {{ section.settings.shop_background }};
+    --gg-btn-text: {{ section.settings.shop_text }};
+    --gg-btn-hover-bg: {{ section.settings.shop_hover_background }};
+    --gg-btn-hover-text: {{ section.settings.shop_hover_text }};
+  }
+{%- endstyle -%}
+
+<section
+  class="gg-banner{% if section.settings.content_alignment == 'center' %} gg-banner--center{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+  <div class="gg-banner__top">
+    <a class="gg-banner__brand{% if section.settings.brand_uppercase %} is-upper{% endif %}" href="{{ section.settings.brand_link | default: '#gift-guide-grid' }}">
+      {{ section.settings.brand_text | escape }}
+    </a>
+
+    {%- if section.settings.tagline != blank -%}
+      <p class="gg-banner__tagline">{{ section.settings.tagline | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.choose_label != blank -%}
+      <div class="gg-banner__actions">
+        <a
+          class="gg-btn gg-btn--choose{% if animation != 'none' %} gg-btn--{{ animation }}{% endif %}"
+          href="{{ choose_link }}"
+          {% if choose_link contains '#' %}data-gg-scroll{% endif %}
+        >
+          <span class="gg-btn__label">{{ section.settings.choose_label | escape }}</span>
+          {%- if section.settings.show_arrow -%}
+            <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
+              <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
+            </svg>
+          {%- endif -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="gg-banner__hero">
+    <div class="gg-banner__art" aria-hidden="true">
+      {%- if section.settings.illustration != blank -%}
+        <img
+          src="{{ section.settings.illustration | image_url: width: 2000 }}"
+          srcset="{{ section.settings.illustration | image_url: width: 800 }} 800w, {{ section.settings.illustration | image_url: width: 1400 }} 1400w, {{ section.settings.illustration | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          alt=""
+          width="{{ section.settings.illustration.width }}"
+          height="{{ section.settings.illustration.height }}"
+          fetchpriority="high"
+        >
+      {%- elsif section.settings.show_line_art -%}
+        {% render 'gift-guide-illustration' %}
+      {%- endif -%}
+    </div>
+    <div class="gg-banner__scrim" aria-hidden="true"></div>
+    <div class="gg-banner__content">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="gg-banner__heading">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="gg-banner__description">{{ section.settings.description | escape | newline_to_br }}</div>
+      {%- endif -%}
+      {%- if section.settings.shop_label != blank -%}
+        <a
+          class="gg-btn gg-btn--shop{% if animation != 'none' %} gg-btn--{{ animation }}{% endif %}"
+          href="{{ shop_link }}"
+          {% if shop_link contains '#' %}data-gg-scroll{% endif %}
+        >
+          <span class="gg-btn__label">{{ section.settings.shop_label | escape }}</span>
+          {%- if section.settings.show_arrow -%}
+            <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
+              <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
+            </svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.strip_text != blank -%}
+    <div class="gg-banner__strip{% if section.settings.strip_marquee %} gg-banner__strip--marquee{% endif %}">
+      <div class="gg-banner__strip-track">
+        <p class="gg-banner__strip-text">{{ section.settings.strip_text | escape }}</p>
+        {%- if section.settings.strip_marquee -%}
+          <p class="gg-banner__strip-text" aria-hidden="true">{{ section.settings.strip_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+<script>
+  (function () {
+    document.querySelectorAll('[data-gg-scroll]').forEach(function (link) {
+      if (link.dataset.ggBound === 'true') return;
+      link.dataset.ggBound = 'true';
+      link.addEventListener('click', function (event) {
+        var id = (link.getAttribute('href') || '').split('#')[1];
+        var target = id && document.getElementById(id);
+        if (!target) return;
+        event.preventDefault();
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Gift guide banner",
+  "class": "gg-banner-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "brand_text", "label": "Brand", "default": "TISSO VISON" },
+    { "type": "url", "id": "brand_link", "label": "Brand link" },
+    { "type": "checkbox", "id": "brand_uppercase", "label": "Uppercase brand", "default": true },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Find the ideal gift for your loved ones." },
+    { "type": "text", "id": "choose_label", "label": "Choose gift label", "default": "Choose gift" },
+    { "type": "text", "id": "choose_link", "label": "Choose gift link", "default": "#gift-guide-grid", "info": "Use #gift-guide-grid to scroll to the product grid." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "text", "id": "shop_label", "label": "Shop now label", "default": "Shop now" },
+    { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#gift-guide-grid" },
+    { "type": "text", "id": "strip_text", "label": "Bottom bar text", "default": "Sustainable, ethically made clothes in sizes XXS to 6XL" },
+    { "type": "header", "content": "Illustration" },
+    { "type": "image_picker", "id": "illustration", "label": "Custom illustration", "info": "Replaces the line-art placeholder. Upload the final artwork here." },
+    { "type": "checkbox", "id": "show_line_art", "label": "Show line-art placeholder", "default": true },
+    { "type": "header", "content": "Button animation" },
+    { "type": "checkbox", "id": "show_arrow", "label": "Show arrow", "default": true },
+    {
+      "type": "select",
+      "id": "button_animation",
+      "label": "Animation",
+      "default": "fill",
+      "options": [
+        { "value": "fill", "label": "Fill sweep and arrow" },
+        { "value": "arrow", "label": "Arrow slide" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "none", "label": "None" }
+      ]
+    },
+    { "type": "checkbox", "id": "enable_entrance", "label": "Animate text on load", "default": true },
+    { "type": "checkbox", "id": "strip_marquee", "label": "Scroll the bottom bar", "default": false },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "top_background", "label": "Top bar background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "muted_color", "label": "Tagline", "default": "#6D6D6D" },
+    { "type": "color", "id": "choose_background", "label": "Choose gift background", "default": "#FFE135" },
+    { "type": "color", "id": "choose_text", "label": "Choose gift text", "default": "#111111" },
+    { "type": "color", "id": "choose_hover_background", "label": "Choose gift hover background", "default": "#111111" },
+    { "type": "color", "id": "choose_hover_text", "label": "Choose gift hover text", "default": "#FFFFFF" },
+    { "type": "color", "id": "shop_background", "label": "Shop now background", "default": "#111111" },
+    { "type": "color", "id": "shop_text", "label": "Shop now text", "default": "#FFFFFF" },
+    { "type": "color", "id": "shop_hover_background", "label": "Shop now hover background", "default": "#FFFFFF" },
+    { "type": "color", "id": "shop_hover_text", "label": "Shop now hover text", "default": "#111111" },
+    { "type": "color", "id": "strip_background", "label": "Bottom bar background", "default": "#F3F3F3" },
+    { "type": "color", "id": "strip_color", "label": "Bottom bar text", "default": "#1A1A1A" },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Text alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    { "type": "range", "id": "heading_size", "min": 32, "max": 80, "step": 1, "unit": "px", "label": "Heading size", "default": 52 },
+    { "type": "range", "id": "brand_size", "min": 12, "max": 28, "step": 1, "unit": "px", "label": "Brand size", "default": 15 },
+    { "type": "range", "id": "tagline_size", "min": 11, "max": 20, "step": 1, "unit": "px", "label": "Tagline size", "default": 13 },
+    { "type": "range", "id": "body_size", "min": 13, "max": 22, "step": 1, "unit": "px", "label": "Description size", "default": 15 },
+    { "type": "range", "id": "strip_size", "min": 9, "max": 16, "step": 1, "unit": "px", "label": "Bottom bar size", "default": 12 },
+    { "type": "range", "id": "hero_height", "min": 420, "max": 820, "step": 10, "unit": "px", "label": "Desktop banner height", "default": 580 },
+    { "type": "range", "id": "content_width", "min": 280, "max": 640, "step": 10, "unit": "px", "label": "Text width", "default": 440 },
+    { "type": "range", "id": "gutter", "min": 12, "max": 80, "step": 2, "unit": "px", "label": "Side spacing", "default": 40 }
+  ],
+  "presets": [
+    { "name": "Gift guide banner" }
+  ]
+}
+{% endschema %}

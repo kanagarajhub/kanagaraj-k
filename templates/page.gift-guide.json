@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "gift_guide_banner": {
+      "type": "gift-guide-banner",
+      "settings": {
+        "brand_text": "TISSO VISON",
+        "tagline": "Find the ideal gift for your loved ones.",
+        "choose_label": "Choose gift",
+        "choose_link": "#gift-guide-grid",
+        "heading": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "shop_label": "Shop now",
+        "shop_link": "#gift-guide-grid",
+        "strip_text": "Sustainable, ethically made clothes in sizes XXS to 6XL"
+      }
+    },
+    "gift_guide_grid": {
+      "type": "gift-guide-grid",
+      "blocks": {
+        "product_1": { "type": "product", "settings": {} },
+        "product_2": { "type": "product", "settings": {} },
+        "product_3": { "type": "product", "settings": {} },
+        "product_4": { "type": "product", "settings": {} },
+        "product_5": { "type": "product", "settings": {} },
+        "product_6": { "type": "product", "settings": {} }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3",
+        "product_4",
+        "product_5",
+        "product_6"
+      ],
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "companion_title": "Soft Winter Jacket",
+        "trigger_a": "Black",
+        "trigger_b": "Medium"
+      }
+    }
+  },
+  "order": [
+    "gift_guide_banner",
+    "gift_guide_grid"
+  ]
+}
