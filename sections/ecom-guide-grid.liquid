@@ -42,8 +42,6 @@
     --gg-ratio: {{ card_ratio }};
     --gg-plus-bg: {{ section.settings.plus_background }};
     --gg-plus-color: {{ section.settings.plus_color }};
-    --gg-plus-x: {{ section.settings.plus_x }}%;
-    --gg-plus-y: {{ section.settings.plus_y }}%;
     --gg-accent: {{ section.settings.accent_color }};
     --gg-popup-bg: {{ section.settings.popup_background }};
     --gg-popup-text: {{ section.settings.popup_text }};
@@ -126,6 +124,7 @@
             data-gg-open
             aria-haspopup="dialog"
             aria-label="View {{ card_title | escape }}"
+            style="--gg-plus-x: {{ block.settings.plus_x }}%; --gg-plus-y: {{ block.settings.plus_y }}%;"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false">
               <path d="M4.98047 0.75V9.21154" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"></path>
@@ -279,9 +278,6 @@
     { "type": "range", "id": "padding_top", "min": 24, "max": 80, "step": 4, "unit": "px", "label": "Padding top", "default": 56 },
     { "type": "range", "id": "padding_bottom", "min": 32, "max": 96, "step": 4, "unit": "px", "label": "Padding bottom", "default": 72 },
     { "type": "checkbox", "id": "enable_animation", "label": "Animate cards into view", "default": true },
-    { "type": "header", "content": "Popup icon" },
-    { "type": "range", "id": "plus_x", "min": 8, "max": 92, "step": 2, "unit": "%", "label": "Horizontal position", "default": 86, "info": "0 is the left edge of the photo. The icon keeps this spot as the card gets smaller." },
-    { "type": "range", "id": "plus_y", "min": 8, "max": 92, "step": 2, "unit": "%", "label": "Vertical position", "default": 78, "info": "0 is the top edge of the photo." },
     { "type": "header", "content": "Popup" },
     { "type": "range", "id": "popup_width", "min": 320, "max": 520, "step": 10, "unit": "px", "label": "Popup width", "default": 460 },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 70, "step": 1, "unit": "%", "label": "Overlay opacity", "default": 46 },
@@ -319,7 +315,10 @@
       "limit": 6,
       "settings": [
         { "type": "product", "id": "product", "label": "Product" },
-        { "type": "image_picker", "id": "image", "label": "Custom image", "info": "Optional. Replaces the product photo and the placeholder." }
+        { "type": "image_picker", "id": "image", "label": "Custom image", "info": "Optional. Replaces the product photo and the placeholder." },
+        { "type": "header", "content": "Popup icon" },
+        { "type": "range", "id": "plus_x", "min": 8, "max": 92, "step": 2, "unit": "%", "label": "Horizontal position", "default": 86, "info": "0 is the left edge of this photo. The icon keeps this spot as the card gets smaller." },
+        { "type": "range", "id": "plus_y", "min": 8, "max": 92, "step": 2, "unit": "%", "label": "Vertical position", "default": 78, "info": "0 is the top edge of this photo." }
       ]
     }
   ],

@@ -128,37 +128,49 @@
         "product_GPithw": {
           "type": "product",
           "settings": {
-            "product": "black-leather-bag"
+            "product": "black-leather-bag",
+            "plus_x": 82,
+            "plus_y": 56
           }
         },
         "product_R43Fa9": {
           "type": "product",
           "settings": {
-            "product": "blue-silk-tuxedo"
+            "product": "blue-silk-tuxedo",
+            "plus_x": 78,
+            "plus_y": 46
           }
         },
         "product_Wgnybr": {
           "type": "product",
           "settings": {
-            "product": "chequered-red-shirt"
+            "product": "chequered-red-shirt",
+            "plus_x": 78,
+            "plus_y": 18
           }
         },
         "product_jYfYky": {
           "type": "product",
           "settings": {
-            "product": "classic-leather-jacket"
+            "product": "classic-leather-jacket",
+            "plus_x": 70,
+            "plus_y": 28
           }
         },
         "product_nM3yeE": {
           "type": "product",
           "settings": {
-            "product": "classic-varsity-top"
+            "product": "classic-varsity-top",
+            "plus_x": 52,
+            "plus_y": 30
           }
         },
         "product_6Lrmjj": {
           "type": "product",
           "settings": {
-            "product": "dark-denim-top"
+            "product": "dark-denim-top",
+            "plus_x": 86,
+            "plus_y": 48
           }
         }
       },
@@ -186,8 +198,6 @@
         "padding_top": 56,
         "padding_bottom": 72,
         "enable_animation": true,
-        "plus_x": 86,
-        "plus_y": 78,
         "popup_width": 460,
         "overlay_opacity": 46,
         "add_label": "Add to cart",
