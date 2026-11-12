@@ -119,13 +119,13 @@ html.gg-modal-open {
 
 .gg-card__open {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
+  left: var(--gg-plus-x, 86%);
+  top: var(--gg-plus-y, 78%);
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -133,16 +133,19 @@ html.gg-modal-open {
   color: var(--gg-plus-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   cursor: pointer;
+  transform: translate(-50%, -50%);
   transition: transform 0.35s cubic-bezier(0.22, 0.8, 0.3, 1);
 }
 
 .gg-card__open svg {
   display: block;
+  width: 10px;
+  height: 10px;
 }
 
 .gg-card__open:hover,
 .gg-card__open:focus-visible {
-  transform: rotate(90deg) scale(1.06);
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.06);
 }
 
 .gg-card__open:focus-visible {
@@ -262,7 +265,7 @@ html.gg-modal-open {
 .gg-modal__title {
   margin: 2px 8px 4px 0;
   font-family: var(--font-heading-family);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.25;
@@ -270,7 +273,7 @@ html.gg-modal-open {
 
 .gg-modal__price {
   margin: 0 0 6px;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -284,7 +287,7 @@ html.gg-modal-open {
 
 .gg-modal__description {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
   color: #5c5c5c;
 }
@@ -296,7 +299,7 @@ html.gg-modal-open {
 .gg-option__label {
   display: block;
   margin: 0 0 6px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -314,7 +317,7 @@ html.gg-modal-open {
   background: #fff;
   color: #111;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0;
   cursor: pointer;
   box-shadow: inset 6px 0 0 var(--gg-choice-bar, var(--gg-accent));
@@ -353,7 +356,7 @@ html.gg-modal-open {
   background-position: right 40px center, right 14px center;
   color: #111;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0;
   appearance: none;
   cursor: pointer;
@@ -362,7 +365,7 @@ html.gg-modal-open {
 .gg-modal__message {
   margin: 0 0 10px;
   color: #9b2c2c;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.4;
 }
 
@@ -390,8 +393,8 @@ html.gg-modal-open {
   background: var(--gg-btn-bg);
   color: var(--gg-btn-text);
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 400;
   letter-spacing: 0.14em;
   line-height: 1;
   text-transform: uppercase;
@@ -495,6 +498,18 @@ html.gg-modal-open {
   }
 }
 
+@media screen and (max-width: 989px) {
+  .gg-card__open {
+    width: 28px;
+    height: 28px;
+  }
+
+  .gg-card__open svg {
+    width: 8px;
+    height: 8px;
+  }
+}
+
 @media screen and (min-width: 990px) {
   .gg-grid__list {
     grid-template-columns: repeat(var(--gg-columns), minmax(0, 1fr));
@@ -520,15 +535,13 @@ html.gg-modal-open {
   }
 
   .gg-card__open {
-    right: 8px;
-    bottom: 8px;
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
   }
 
   .gg-card__open svg {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
   }
 
   .gg-modal {
@@ -546,30 +559,30 @@ html.gg-modal-open {
   }
 
   .gg-modal__title {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .gg-modal__price {
-    font-size: 15px;
+    font-size: 19px;
   }
 
   .gg-modal__description {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .gg-option__label {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .gg-choice,
   .gg-select {
     min-height: 46px;
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .gg-grid .gg-btn {
     min-height: 48px;
-    font-size: 13px;
+    font-size: 15px;
     letter-spacing: 0.16em;
   }
 }

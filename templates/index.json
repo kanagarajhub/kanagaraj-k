@@ -186,6 +186,8 @@
         "padding_top": 56,
         "padding_bottom": 72,
         "enable_animation": true,
+        "plus_x": 86,
+        "plus_y": 78,
         "popup_width": 460,
         "overlay_opacity": 46,
         "add_label": "Add to cart",
