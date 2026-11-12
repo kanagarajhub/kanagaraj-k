@@ -399,13 +399,18 @@
     top: auto;
     width: min(var(--gg-content-width), 490px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
     max-width: min(var(--gg-content-width), 490px);
-    margin: 0 0 clamp(16px, calc((58% - var(--gg-place-y, 54%)) * 0.4), 140px);
+    margin: 0 0 clamp(56px, calc(64px + (58% - var(--gg-place-y, 54%)) * 0.2), 120px);
     padding: 0;
     transform: translateX(min(var(--gg-nudge-x, 0px), 40px));
   }
 
+  .gg-banner h1.gg-banner__heading {
+    margin-bottom: 28px;
+  }
+
   .gg-banner__description {
     max-width: 100%;
+    margin-bottom: 36px;
   }
 
   .gg-banner--x-left .gg-banner__content {
@@ -678,12 +683,12 @@
 @media screen and (min-width: 750px) and (max-width: 989px) {
   .gg-banner h1.gg-banner__heading {
     font-size: min(var(--gg-heading-size), 32px);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .gg-banner__description {
     font-size: min(var(--gg-body-size), 14px);
-    margin-bottom: 16px;
+    margin-bottom: 28px;
   }
 
   .gg-banner .gg-btn--shop {
@@ -706,12 +711,12 @@
 @media screen and (min-width: 990px) and (max-width: 1199px) {
   .gg-banner h1.gg-banner__heading {
     font-size: min(var(--gg-heading-size), 44px);
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
 
   .gg-banner__description {
     font-size: min(var(--gg-body-size), 16px);
-    margin-bottom: 20px;
+    margin-bottom: 32px;
   }
 
   .gg-banner .gg-btn--shop {
