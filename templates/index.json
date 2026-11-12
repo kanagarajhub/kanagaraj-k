@@ -116,10 +116,10 @@
         "mobile_heading_size": 22,
         "mobile_body_size": 12,
         "mobile_art_height": 220,
-        "heading_size": 52,
+        "heading_size": 60,
         "body_size": 15,
         "strip_size": 12,
-        "hero_height": 580,
+        "hero_height": 590,
         "content_width": 440,
         "gutter": 40
       }
