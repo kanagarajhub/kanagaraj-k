@@ -1,5 +1,5 @@
 /**
- * Gift guide grid.
+ * Ecom guide grid.
  * Vanilla JS only. Opens a product popup, renders variant options from the
  * product JSON printed by the section, and adds the chosen variant to the cart.
  *
@@ -64,7 +64,7 @@
   }
 
   function bootAll(scope) {
-    (scope || document).querySelectorAll('[data-gift-guide]').forEach(boot);
+    (scope || document).querySelectorAll('[data-ecom-guide]').forEach(boot);
   }
 
   if (!window.__giftGuideGrid) {
@@ -453,7 +453,7 @@
     function notifyTheme(variantId, response) {
       if (typeof publish !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
       publish(PUB_SUB_EVENTS.cartUpdate, {
-        source: 'gift-guide',
+        source: 'ecom-guide',
         productVariantId: variantId,
         cartData: response
       });

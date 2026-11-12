@@ -1,5 +1,5 @@
-{{ 'section-gift-guide-grid.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'gift-guide-grid.js' | asset_url }}" defer="defer"></script>
+{{ 'section-ecom-guide-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ecom-guide-grid.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
   assign companion = section.settings.companion_product
@@ -61,9 +61,9 @@
 {%- endstyle -%}
 
 <section
-  id="gift-guide-grid"
+  id="ecom-guide-grid"
   class="gg-grid{% if section.settings.heading_alignment == 'center' %} gg-grid--center{% endif %}{% if section.settings.enable_animation %} gg-grid--animate{% endif %}"
-  data-gift-guide
+  data-ecom-guide
   data-section-id="{{ section.id }}"
   data-animate="{% if section.settings.enable_animation %}true{% else %}false{% endif %}"
   data-money-format="{{ shop.money_format | strip_html | escape }}"
@@ -114,7 +114,7 @@
                 loading="lazy"
               >
             {%- else -%}
-              {% render 'gift-guide-placeholder', index: placeholder_index %}
+              {% render 'ecom-guide-placeholder', index: placeholder_index %}
             {%- endif -%}
           </div>
 
@@ -215,7 +215,7 @@
 
 {% schema %}
 {
-  "name": "Gift guide grid",
+  "name": "Ecom guide grid",
   "class": "gg-grid-section",
   "disabled_on": {
     "groups": ["header", "footer"]
@@ -307,7 +307,7 @@
   ],
   "presets": [
     {
-      "name": "Gift guide grid",
+      "name": "Ecom guide grid",
       "blocks": [
         { "type": "product" },
         { "type": "product" },

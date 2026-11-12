@@ -1,13 +1,9 @@
-{{ 'section-gift-guide-banner.css' | asset_url | stylesheet_tag }}
+{{ 'section-ecom-guide-banner.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign choose_link = section.settings.choose_link | strip
   assign shop_link = section.settings.shop_link | strip
-  if choose_link == blank or choose_link contains 'javascript:'
-    assign choose_link = '#gift-guide-grid'
-  endif
   if shop_link == blank or shop_link contains 'javascript:'
-    assign shop_link = '#gift-guide-grid'
+    assign shop_link = '#ecom-guide-grid'
   endif
   assign animation = section.settings.button_animation
 -%}
@@ -15,26 +11,15 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
     --gg-bg: {{ section.settings.background }};
-    --gg-top-bg: {{ section.settings.top_background }};
     --gg-text: {{ section.settings.text_color }};
-    --gg-muted: {{ section.settings.muted_color }};
     --gg-strip-bg: {{ section.settings.strip_background }};
     --gg-strip-text: {{ section.settings.strip_color }};
     --gg-heading-size: {{ section.settings.heading_size }}px;
-    --gg-brand-size: {{ section.settings.brand_size }}px;
     --gg-body-size: {{ section.settings.body_size }}px;
     --gg-strip-size: {{ section.settings.strip_size }}px;
-    --gg-tagline-size: {{ section.settings.tagline_size }}px;
     --gg-hero-min: {{ section.settings.hero_height }}px;
     --gg-gutter: {{ section.settings.gutter }}px;
     --gg-content-width: {{ section.settings.content_width }}px;
-  }
-
-  #shopify-section-{{ section.id }} .gg-btn--choose {
-    --gg-btn-bg: {{ section.settings.choose_background }};
-    --gg-btn-text: {{ section.settings.choose_text }};
-    --gg-btn-hover-bg: {{ section.settings.choose_hover_background }};
-    --gg-btn-hover-text: {{ section.settings.choose_hover_text }};
   }
 
   #shopify-section-{{ section.id }} .gg-btn--shop {
@@ -49,33 +34,6 @@
   class="gg-banner{% if section.settings.content_alignment == 'center' %} gg-banner--center{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
   aria-label="{{ section.settings.heading | escape }}"
 >
-  <div class="gg-banner__top">
-    <a class="gg-banner__brand{% if section.settings.brand_uppercase %} is-upper{% endif %}" href="{{ section.settings.brand_link | default: '#gift-guide-grid' }}">
-      {{ section.settings.brand_text | escape }}
-    </a>
-
-    {%- if section.settings.tagline != blank -%}
-      <p class="gg-banner__tagline">{{ section.settings.tagline | escape }}</p>
-    {%- endif -%}
-
-    {%- if section.settings.choose_label != blank -%}
-      <div class="gg-banner__actions">
-        <a
-          class="gg-btn gg-btn--choose{% if animation != 'none' %} gg-btn--{{ animation }}{% endif %}"
-          href="{{ choose_link }}"
-          {% if choose_link contains '#' %}data-gg-scroll{% endif %}
-        >
-          <span class="gg-btn__label">{{ section.settings.choose_label | escape }}</span>
-          {%- if section.settings.show_arrow -%}
-            <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
-              <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
-            </svg>
-          {%- endif -%}
-        </a>
-      </div>
-    {%- endif -%}
-  </div>
-
   <div class="gg-banner__hero">
     <div class="gg-banner__art" aria-hidden="true">
       {%- if section.settings.illustration != blank -%}
@@ -89,7 +47,7 @@
           fetchpriority="high"
         >
       {%- elsif section.settings.show_line_art -%}
-        {% render 'gift-guide-illustration' %}
+        {% render 'ecom-guide-illustration' %}
       {%- endif -%}
     </div>
     <div class="gg-banner__scrim" aria-hidden="true"></div>
@@ -148,23 +106,18 @@
 
 {% schema %}
 {
-  "name": "Gift guide banner",
+  "name": "Ecom guide banner",
   "class": "gg-banner-section",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
     { "type": "header", "content": "Text" },
-    { "type": "text", "id": "brand_text", "label": "Brand", "default": "TISSO VISON" },
-    { "type": "url", "id": "brand_link", "label": "Brand link" },
-    { "type": "checkbox", "id": "brand_uppercase", "label": "Uppercase brand", "default": true },
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Find the ideal gift for your loved ones." },
-    { "type": "text", "id": "choose_label", "label": "Choose gift label", "default": "Choose gift" },
-    { "type": "text", "id": "choose_link", "label": "Choose gift link", "default": "#gift-guide-grid", "info": "Use #gift-guide-grid to scroll to the product grid." },
+    { "type": "paragraph", "content": "Brand, tagline, and Choose gift are edited in the Header section." },
     { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
     { "type": "text", "id": "shop_label", "label": "Shop now label", "default": "Shop now" },
-    { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#gift-guide-grid" },
+    { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#ecom-guide-grid" },
     { "type": "text", "id": "strip_text", "label": "Bottom bar text", "default": "Sustainable, ethically made clothes in sizes XXS to 6XL" },
     { "type": "header", "content": "Illustration" },
     { "type": "image_picker", "id": "illustration", "label": "Custom illustration", "info": "Replaces the line-art placeholder. Upload the final artwork here." },
@@ -187,13 +140,7 @@
     { "type": "checkbox", "id": "strip_marquee", "label": "Scroll the bottom bar", "default": false },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
-    { "type": "color", "id": "top_background", "label": "Top bar background", "default": "#FFFFFF" },
     { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
-    { "type": "color", "id": "muted_color", "label": "Tagline", "default": "#6D6D6D" },
-    { "type": "color", "id": "choose_background", "label": "Choose gift background", "default": "#FFE135" },
-    { "type": "color", "id": "choose_text", "label": "Choose gift text", "default": "#111111" },
-    { "type": "color", "id": "choose_hover_background", "label": "Choose gift hover background", "default": "#111111" },
-    { "type": "color", "id": "choose_hover_text", "label": "Choose gift hover text", "default": "#FFFFFF" },
     { "type": "color", "id": "shop_background", "label": "Shop now background", "default": "#111111" },
     { "type": "color", "id": "shop_text", "label": "Shop now text", "default": "#FFFFFF" },
     { "type": "color", "id": "shop_hover_background", "label": "Shop now hover background", "default": "#FFFFFF" },
@@ -212,8 +159,6 @@
       ]
     },
     { "type": "range", "id": "heading_size", "min": 32, "max": 80, "step": 1, "unit": "px", "label": "Heading size", "default": 52 },
-    { "type": "range", "id": "brand_size", "min": 12, "max": 28, "step": 1, "unit": "px", "label": "Brand size", "default": 15 },
-    { "type": "range", "id": "tagline_size", "min": 11, "max": 20, "step": 1, "unit": "px", "label": "Tagline size", "default": 13 },
     { "type": "range", "id": "body_size", "min": 13, "max": 22, "step": 1, "unit": "px", "label": "Description size", "default": 15 },
     { "type": "range", "id": "strip_size", "min": 9, "max": 16, "step": 1, "unit": "px", "label": "Bottom bar size", "default": 12 },
     { "type": "range", "id": "hero_height", "min": 420, "max": 820, "step": 10, "unit": "px", "label": "Desktop banner height", "default": 580 },
@@ -221,7 +166,7 @@
     { "type": "range", "id": "gutter", "min": 12, "max": 80, "step": 2, "unit": "px", "label": "Side spacing", "default": 40 }
   ],
   "presets": [
-    { "name": "Gift guide banner" }
+    { "name": "Ecom guide banner" }
   ]
 }
 {% endschema %}
