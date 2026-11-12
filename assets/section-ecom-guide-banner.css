@@ -408,9 +408,7 @@
   .gg-banner--align-right .gg-banner__description {
     margin-left: auto;
   }
-  .gg-banner__art .gg-art-mobile {
-    display: none;
-  }
+  
 }
 
  
@@ -591,3 +589,7 @@
     transition: none;
   }
 }
+
+.gg-banner__art .gg-art-mobile {
+    display: none;
+  }
