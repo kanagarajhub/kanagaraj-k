@@ -100,7 +100,7 @@
         "shop_text": "#ffffff",
         "shop_hover_background": "#ffffff",
         "shop_hover_text": "#111111",
-        "strip_background": "#F5F5F5",
+        "strip_background": "#f5f5f5",
         "strip_color": "#1a1a1a",
         "content_place_x": "left",
         "content_place_y": 54,
@@ -134,31 +134,31 @@
         "product_R43Fa9": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "blue-silk-tuxedo"
           }
         },
         "product_Wgnybr": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "chequered-red-shirt"
           }
         },
         "product_jYfYky": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "classic-leather-jacket"
           }
         },
         "product_nM3yeE": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "classic-varsity-top"
           }
         },
         "product_6Lrmjj": {
           "type": "product",
           "settings": {
-            "product": ""
+            "product": "dark-denim-top"
           }
         }
       },
