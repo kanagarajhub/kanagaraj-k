@@ -78,20 +78,14 @@
         "padding_bottom": 36
       }
     },
-    "gift_guide_banner_BKwjrr": {
-      "type": "gift-guide-banner",
-      "name": "Gift guide banner",
+    "ecom_guide_banner_BKwjrr": {
+      "type": "ecom-guide-banner",
+      "name": "Ecom guide banner",
       "settings": {
-        "brand_text": "TISSO VISON",
-        "brand_link": "",
-        "brand_uppercase": true,
-        "tagline": "Find the ideal gift for your loved ones.",
-        "choose_label": "Choose gift",
-        "choose_link": "#gift-guide-grid",
         "heading": "The Gift Guide",
         "description": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
         "shop_label": "Shop now",
-        "shop_link": "#gift-guide-grid",
+        "shop_link": "#ecom-guide-grid",
         "strip_text": "Sustainable, ethically made clothes in sizes XXS to 6XL",
         "show_line_art": true,
         "show_arrow": true,
@@ -99,13 +93,7 @@
         "enable_entrance": true,
         "strip_marquee": false,
         "background": "#FFFFFF",
-        "top_background": "#FFFFFF",
         "text_color": "#111111",
-        "muted_color": "#6D6D6D",
-        "choose_background": "#FFE135",
-        "choose_text": "#111111",
-        "choose_hover_background": "#111111",
-        "choose_hover_text": "#FFFFFF",
         "shop_background": "#111111",
         "shop_text": "#FFFFFF",
         "shop_hover_background": "#FFFFFF",
@@ -114,8 +102,6 @@
         "strip_color": "#1A1A1A",
         "content_alignment": "left",
         "heading_size": 52,
-        "brand_size": 15,
-        "tagline_size": 13,
         "body_size": 15,
         "strip_size": 12,
         "hero_height": 580,
@@ -123,8 +109,8 @@
         "gutter": 40
       }
     },
-    "gift_guide_grid_ckELRr": {
-      "type": "gift-guide-grid",
+    "ecom_guide_grid_ckELRr": {
+      "type": "ecom-guide-grid",
       "blocks": {
         "product_GPithw": {
           "type": "product",
@@ -171,7 +157,7 @@
         "product_nM3yeE",
         "product_6Lrmjj"
       ],
-      "name": "Gift guide grid",
+      "name": "Ecom guide grid",
       "settings": {
         "heading": "Tisso vison in the wild",
         "heading_alignment": "left",
@@ -215,7 +201,7 @@
   "order": [
     "image_banner",
     "featured_collection",
-    "gift_guide_banner_BKwjrr",
-    "gift_guide_grid_ckELRr"
+    "ecom_guide_banner_BKwjrr",
+    "ecom_guide_grid_ckELRr"
   ]
 }
