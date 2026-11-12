@@ -321,59 +321,6 @@
   </header>
 </{{ header_tag }}>
 
-{%- liquid
-  assign gift_choose_link = section.settings.gift_choose_link | strip
-  if gift_choose_link == blank or gift_choose_link contains 'javascript:'
-    assign gift_choose_link = '#ecom-guide-grid'
-  endif
-  assign gift_brand_link = section.settings.gift_brand_link | default: routes.root_url
--%}
-{%- if section.settings.gift_brand_text != blank or section.settings.gift_tagline != blank or section.settings.gift_choose_label != blank -%}
-  {{ 'section-ecom-guide-banner.css' | asset_url | stylesheet_tag }}
-  <div class="gg-banner gg-header-bar">
-    <div class="gg-banner__top">
-      {%- if section.settings.gift_brand_text != blank -%}
-        <a class="gg-banner__brand{% if section.settings.gift_brand_uppercase %} is-upper{% endif %}" href="{{ gift_brand_link }}">
-          {{ section.settings.gift_brand_text | escape }}
-        </a>
-      {%- endif -%}
-      {%- if section.settings.gift_tagline != blank -%}
-        <p class="gg-banner__tagline">{{ section.settings.gift_tagline | escape }}</p>
-      {%- endif -%}
-      {%- if section.settings.gift_choose_label != blank -%}
-        <div class="gg-banner__actions">
-          <a
-            class="gg-btn gg-btn--choose gg-btn--fill"
-            href="{{ gift_choose_link }}"
-            {% if gift_choose_link contains '#' %}data-gg-scroll{% endif %}
-          >
-            <span class="gg-btn__label">{{ section.settings.gift_choose_label | escape }}</span>
-            <svg class="gg-btn__icon" viewBox="0 0 20 12" width="18" height="10" aria-hidden="true" focusable="false">
-              <path d="M0 6h17M12.5 1.5 18 6l-5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path>
-            </svg>
-          </a>
-        </div>
-      {%- endif -%}
-    </div>
-  </div>
-  <script>
-    (function () {
-      document.querySelectorAll('[data-gg-scroll]').forEach(function (link) {
-        if (link.dataset.ggBound === 'true') return;
-        link.dataset.ggBound = 'true';
-        link.addEventListener('click', function (event) {
-          var id = (link.getAttribute('href') || '').split('#')[1];
-          var target = id && document.getElementById(id);
-          if (!target) return;
-          event.preventDefault();
-          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-        });
-      });
-    })();
-  </script>
-{%- endif -%}
-
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
     color_scheme: section.settings.color_scheme,
@@ -559,46 +506,6 @@
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
-    {
-      "type": "header",
-      "content": "Ecom guide bar"
-    },
-    {
-      "type": "text",
-      "id": "gift_brand_text",
-      "label": "Brand",
-      "default": "TISSO VISON"
-    },
-    {
-      "type": "url",
-      "id": "gift_brand_link",
-      "label": "Brand link"
-    },
-    {
-      "type": "checkbox",
-      "id": "gift_brand_uppercase",
-      "label": "Uppercase brand",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "gift_tagline",
-      "label": "Tagline",
-      "default": "Find the ideal gift for your loved ones."
-    },
-    {
-      "type": "text",
-      "id": "gift_choose_label",
-      "label": "Choose gift label",
-      "default": "Choose gift"
-    },
-    {
-      "type": "text",
-      "id": "gift_choose_link",
-      "label": "Choose gift link",
-      "default": "#ecom-guide-grid",
-      "info": "Use #ecom-guide-grid to scroll to the product grid."
-    },
     {
       "type": "checkbox",
       "id": "show_cart",
