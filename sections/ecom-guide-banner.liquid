@@ -40,25 +40,15 @@
 {%- endstyle -%}
 
 <section
-  class="gg-banner gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
+  class="gg-banner gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.description_mobile != blank %} gg-banner--mobile-copy{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
   aria-label="{{ section.settings.heading | escape }}"
 >
   <div class="gg-banner__hero">
     {%- liquid
       assign desktop_image = section.settings.illustration
       assign mobile_image = section.settings.illustration_mobile
-      if desktop_image == blank
-        assign desktop_image = mobile_image
-      endif
-      if mobile_image == blank
-        assign mobile_image = desktop_image
-      endif
-      assign separate_mobile = false
-      if section.settings.illustration != blank and section.settings.illustration_mobile != blank
-        assign separate_mobile = true
-      endif
     -%}
-    <div class="gg-banner__art{% if separate_mobile %} has-mobile{% endif %}" aria-hidden="true">
+    <div class="gg-banner__art{% if desktop_image == blank %} is-placeholder{% endif %}{% if mobile_image == blank %} is-placeholder-mobile{% endif %}" aria-hidden="true">
       {%- if desktop_image != blank -%}
         <img
           class="gg-art-desktop"
@@ -70,19 +60,21 @@
           height="{{ desktop_image.height }}"
           fetchpriority="high"
         >
-        {%- if separate_mobile -%}
-          <img
-            class="gg-art-mobile"
-            src="{{ mobile_image | image_url: width: 1200 }}"
-            srcset="{{ mobile_image | image_url: width: 600 }} 600w, {{ mobile_image | image_url: width: 900 }} 900w, {{ mobile_image | image_url: width: 1200 }} 1200w"
-            sizes="100vw"
-            alt=""
-            width="{{ mobile_image.width }}"
-            height="{{ mobile_image.height }}"
-          >
-        {%- endif -%}
-      {%- elsif section.settings.show_line_art -%}
-        {% render 'ecom-guide-illustration' %}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg gg-art-desktop' }}
+      {%- endif -%}
+      {%- if mobile_image != blank -%}
+        <img
+          class="gg-art-mobile"
+          src="{{ mobile_image | image_url: width: 1200 }}"
+          srcset="{{ mobile_image | image_url: width: 600 }} 600w, {{ mobile_image | image_url: width: 900 }} 900w, {{ mobile_image | image_url: width: 1200 }} 1200w"
+          sizes="100vw"
+          alt=""
+          width="{{ mobile_image.width }}"
+          height="{{ mobile_image.height }}"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg gg-art-mobile' }}
       {%- endif -%}
     </div>
     <div class="gg-banner__scrim" aria-hidden="true"></div>
@@ -91,7 +83,10 @@
         <h1 class="gg-banner__heading">{{ section.settings.heading | escape }}</h1>
       {%- endif -%}
       {%- if section.settings.description != blank -%}
-        <div class="gg-banner__description">{{ section.settings.description | escape | newline_to_br }}</div>
+        <div class="gg-banner__description gg-banner__description--desktop">{{ section.settings.description | escape | newline_to_br }}</div>
+      {%- endif -%}
+      {%- if section.settings.description_mobile != blank -%}
+        <div class="gg-banner__description gg-banner__description--mobile">{{ section.settings.description_mobile | escape | newline_to_br }}</div>
       {%- endif -%}
       {%- if section.settings.shop_label != blank -%}
         <a
@@ -152,14 +147,14 @@
     { "type": "header", "content": "Text" },
     { "type": "paragraph", "content": "Brand, tagline, and Choose gift are edited in the Header section." },
     { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "textarea", "id": "description", "label": "Desktop description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination.\nExplore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "textarea", "id": "description_mobile", "label": "Mobile description", "info": "Shown on screens 750px and smaller. If empty, the desktop description is used." },
     { "type": "text", "id": "shop_label", "label": "Shop now label", "default": "Shop now" },
     { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#ecom-guide-grid" },
     { "type": "text", "id": "strip_text", "label": "Bottom bar text", "default": "Sustainable, ethically made clothes in sizes XXS to 6XL" },
     { "type": "header", "content": "Illustration" },
-    { "type": "image_picker", "id": "illustration", "label": "Desktop image", "info": "Shown on screens wider than 750px. Replaces the line-art placeholder." },
-    { "type": "image_picker", "id": "illustration_mobile", "label": "Mobile image", "info": "Shown on screens 750px and smaller. If empty, the desktop image is used." },
-    { "type": "checkbox", "id": "show_line_art", "label": "Show line-art placeholder", "default": true },
+    { "type": "image_picker", "id": "illustration", "label": "Desktop image", "info": "Shown only on screens wider than 750px. Shopify's placeholder is used until an image is selected." },
+    { "type": "image_picker", "id": "illustration_mobile", "label": "Mobile image", "info": "Shown only on screens 750px and smaller. Shopify's placeholder is used until an image is selected." },
     { "type": "header", "content": "Button animation" },
     { "type": "checkbox", "id": "show_arrow", "label": "Show arrow", "default": true },
     {

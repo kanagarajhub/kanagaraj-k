@@ -30,7 +30,6 @@
   box-sizing: border-box;
 }
 
-.gg-banner h1,
 .gg-banner p,
 .gg-banner a {
   margin: 0;
@@ -49,7 +48,7 @@
 
 .gg-banner__brand {
   font-family: var(--font-heading-family);
-  font-size: min(var(--gg-brand-size), max(15px, 1.6vw));
+  font-size: var(--gg-brand-size);
   font-weight: 700;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -69,7 +68,7 @@
   max-width: min(420px, 36vw);
   margin: 0;
   color: var(--gg-muted);
-  font-size: min(var(--gg-tagline-size), max(13px, 1.2vw));
+  font-size: var(--gg-tagline-size);
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: 1.35;
@@ -99,7 +98,7 @@
   object-position: center top;
 }
 
-.gg-art-mobile {
+.gg-banner__art .gg-art-mobile {
   display: none;
 }
 
@@ -115,20 +114,24 @@
   padding: clamp(200px, 30vh, 270px) var(--gg-gutter) 72px;
 }
 
-.gg-banner__heading {
+.gg-banner h1.gg-banner__heading {
   margin: 0 0 18px;
   font-family: var(--font-heading-family);
-  font-size: clamp(34px, 4.4vw, min(var(--gg-heading-size), 60px));
+  font-size: var(--gg-heading-size);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--gg-text);
 }
 
+.gg-banner__description--mobile {
+  display: none;
+}
+
 .gg-banner__description {
   margin: 0 0 32px;
   max-width: 36ch;
-  font-size: min(var(--gg-body-size), 18px);
+  font-size: var(--gg-body-size);
   line-height: 1.55;
   color: var(--gg-text);
 }
@@ -146,7 +149,7 @@
 .gg-banner__strip-text {
   margin: 0;
   padding: 12px var(--gg-gutter);
-  font-size: min(var(--gg-strip-size), 14px);
+  font-size: var(--gg-strip-size);
   font-weight: 500;
   letter-spacing: 0.16em;
   line-height: 1.4;
@@ -365,6 +368,18 @@
     object-position: center center;
   }
 
+  .gg-banner__art.is-placeholder {
+    height: var(--gg-hero-min, 580px);
+  }
+
+  .gg-banner__art.is-placeholder .gg-art-desktop.placeholder-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(var(--color-foreground), 0.04);
+  }
+
   .gg-banner__content {
     position: absolute;
     z-index: 2;
@@ -469,12 +484,15 @@
     height: min(var(--gg-m-art, 220px), 70vw);
   }
 
-  .gg-banner__art.has-mobile .gg-art-desktop {
+  .gg-banner__art .gg-art-desktop {
     display: none;
   }
 
-  .gg-banner__art.has-mobile .gg-art-mobile {
+  .gg-banner__art .gg-art-mobile {
     display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .gg-banner__content {
@@ -521,18 +539,26 @@
     margin-right: 0;
   }
 
-  .gg-banner__heading {
-    font-size: min(var(--gg-m-heading, 22px), 7vw);
+  .gg-banner h1.gg-banner__heading {
+    font-size: var(--gg-m-heading, 22px);
     line-height: 1.15;
     letter-spacing: -0.03em;
     margin: 0 0 8px;
+  }
+
+  .gg-banner--mobile-copy .gg-banner__description--desktop {
+    display: none;
+  }
+
+  .gg-banner--mobile-copy .gg-banner__description--mobile {
+    display: block;
   }
 
   .gg-banner__description {
     max-width: min(34ch, 100%);
     margin-top: 0;
     margin-bottom: 0;
-    font-size: min(var(--gg-m-body, 12px), 3.8vw);
+    font-size: var(--gg-m-body, 12px);
     line-height: 1.45;
   }
 

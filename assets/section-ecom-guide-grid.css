@@ -46,7 +46,7 @@ html.gg-modal-open {
 .gg-grid__heading {
   margin: 0 0 28px;
   font-family: var(--font-heading-family);
-  font-size: clamp(28px, 3vw, min(var(--gg-heading-size), 48px));
+  font-size: var(--gg-heading-size);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
