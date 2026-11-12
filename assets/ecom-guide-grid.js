@@ -3,8 +3,9 @@
  * Vanilla JS only. Opens a product popup, renders variant options from the
  * product JSON printed by the section, and adds the chosen variant to the cart.
  *
- * Bundle rule: when the selected variant's option values include both trigger
- * values (Black and Medium by default), Soft Winter Jacket is added as well.
+ * Bundle rule: when the selected variant includes every trigger value,
+ * in any option order (Black + Medium, or Medium + Black), the extra
+ * product is added in the same cart request.
  */
 (function () {
   var COLOR_BARS = {
@@ -45,6 +46,10 @@
           available: true,
           price: price,
           compareAtPrice: null,
+          title: color + ' / ' + size,
+          option1: color,
+          option2: size,
+          option3: null,
           options: [color, size],
           image: null
         });
@@ -371,11 +376,25 @@
       addLabel.textContent = root.dataset.labelAdding || 'Adding…';
 
       try {
+        var ids = [variant.id];
         var companionNote = '';
-        if (shouldBundle(variant)) {
-          companionNote = await addCompanion(variant.id);
+        if (shouldBundle(variant, state.selection)) {
+          var companionId = await resolveCompanion(triggerValues());
+          var companionName = root.dataset.companionTitle || 'The extra product';
+          if (!companionId) {
+            companionNote = 'This product was added. ' + companionName + ' was not found — choose it as the auto-add product in the theme editor.';
+          } else if (String(companionId) !== String(variant.id)) {
+            ids.push(companionId);
+          }
         }
-        var response = await postAdd(variant.id, true);
+        var response;
+        try {
+          response = await postAdd(ids, true);
+        } catch (error) {
+          if (ids.length < 2) throw error;
+          response = await postAdd([variant.id], true);
+          companionNote = 'This product was added. ' + (root.dataset.companionTitle || 'The extra product') + ' could not be added: ' + error.message;
+        }
         if (companionNote) {
           updateBubble(response);
           showMessage(companionNote);
@@ -383,7 +402,7 @@
         }
         notifyTheme(variant.id, response);
         var notification = document.querySelector('cart-notification');
-        if (notification && typeof notification.renderContents === 'function') {
+        if (notification && response && response.sections) {
           close();
           revealCart(response);
         } else {
@@ -398,55 +417,63 @@
       }
     }
 
+    function triggerValues() {
+      return [root.dataset.triggerA, root.dataset.triggerB].map(normalize).filter(Boolean);
+    }
+
     /**
-     * Adds Soft Winter Jacket when the variant carries every trigger value.
-     * Returns an empty string on success, or a note when the jacket could not be added.
+     * The two boxes are values. They match the variant's own option values,
+     * so Color/Size or Size/Color are the same combination.
      */
-    async function addCompanion(mainId) {
-      var companionId = await resolveCompanion();
-      if (!companionId) {
-        return 'This product was added. Soft Winter Jacket was not found — choose it as the auto-add product in the theme editor.';
-      }
-      if (String(companionId) === String(mainId)) return '';
-      try {
-        await postAdd(companionId, false);
-        return '';
-      } catch (error) {
-        return 'This product was added. Soft Winter Jacket could not be added: ' + error.message;
-      }
-    }
-
-    function shouldBundle(variant) {
-      var triggers = [root.dataset.triggerA, root.dataset.triggerB].map(normalize).filter(Boolean);
+    function shouldBundle(variant, selection) {
+      var triggers = triggerValues();
       if (!triggers.length) return false;
-      var values = (variant.options || []).map(normalize);
-      return triggers.every(function (trigger) { return values.indexOf(trigger) !== -1; });
+      if (hasValues(variant, triggers)) return true;
+      var picked = {
+        options: Object.keys(selection || {}).map(function (name) { return selection[name]; })
+      };
+      return hasValues(picked, triggers);
     }
 
-    async function resolveCompanion() {
+    async function resolveCompanion(triggers) {
+      var variants = await companionVariants();
+      var matched = variants.find(function (item) {
+        return item.available !== false && hasValues(item, triggers);
+      }) || variants.find(function (item) { return hasValues(item, triggers); });
+      if (matched) return String(matched.id);
       if (root.dataset.companionId) return root.dataset.companionId;
-      if (root._companionResolved) return root._companionId || '';
-      root._companionResolved = true;
+      var fallback = variants.find(function (item) { return item.available; }) || variants[0];
+      return fallback ? String(fallback.id) : '';
+    }
+
+    async function companionVariants() {
+      if (root._companionVariants) return root._companionVariants;
+      root._companionVariants = [];
+      var handle = (root.dataset.companionHandle || '').trim();
       var title = (root.dataset.companionTitle || 'Soft Winter Jacket').trim();
       try {
-        var searchUrl = '/search/suggest.json?q=' + encodeURIComponent(title) +
-          '&resources[type]=product&resources[limit]=10&resources[options][fields]=title';
-        var search = await fetch(searchUrl, { headers: { Accept: 'application/json' } });
-        var payload = await search.json();
-        var products = (payload.resources && payload.resources.results && payload.resources.results.products) || [];
-        var match = products.find(function (item) {
-          return item.title && normalize(item.title) === normalize(title);
-        });
-        if (!match || !match.handle) return '';
-        var productResponse = await fetch('/products/' + match.handle + '.js', { headers: { Accept: 'application/json' } });
-        if (!productResponse.ok) return '';
+        if (!handle) {
+          var searchUrl = '/search/suggest.json?q=' + encodeURIComponent(title) +
+            '&resources[type]=product&resources[limit]=10&resources[options][fields]=title';
+          var search = await fetch(searchUrl, { headers: { Accept: 'application/json' } });
+          var payload = await search.json();
+          var products = (payload.resources && payload.resources.results && payload.resources.results.products) || [];
+          var match = products.find(function (item) {
+            return item.title && normalize(item.title) === normalize(title);
+          });
+          handle = match && match.handle ? match.handle : '';
+        }
+        if (!handle) return root._companionVariants;
+        var productResponse = await fetch('/products/' + handle + '.js', { headers: { Accept: 'application/json' } });
+        if (!productResponse.ok) return root._companionVariants;
         var product = await productResponse.json();
-        if (!product.title || normalize(product.title) !== normalize(title)) return '';
-        var variant = (product.variants || []).find(function (item) { return item.available; }) || (product.variants || [])[0];
-        root._companionId = variant ? String(variant.id) : '';
-        return root._companionId;
+        if (title && product.title && normalize(product.title) !== normalize(title) && !root.dataset.companionHandle) {
+          return root._companionVariants;
+        }
+        root._companionVariants = product.variants || [];
+        return root._companionVariants;
       } catch (error) {
-        return '';
+        return root._companionVariants;
       }
     }
 
@@ -487,18 +514,49 @@
       return options.every(function (option, index) {
         var chosen = selection[option.name];
         if (!chosen) return !exact;
-        return normalize(variant.options[index]) === normalize(chosen);
+        return normalize(optionSlot(variant, index)) === normalize(chosen);
       });
     }) || null;
   }
 
-  function postAdd(variantId, requestSections) {
-    var payload = { id: Number(variantId), quantity: 1 };
+  function optionSlot(variant, index) {
+    var listed = variant.options && variant.options[index];
+    if (listed != null && listed !== '') return listed;
+    return variant['option' + (index + 1)];
+  }
+
+  function variantValues(variant) {
+    var values = [];
+    function add(value) {
+      var token = normalize(value);
+      if (!token || token === 'default title') return;
+      if (values.indexOf(token) === -1) values.push(token);
+    }
+    if (!variant) return values;
+    add(variant.option1);
+    add(variant.option2);
+    add(variant.option3);
+    (variant.options || []).forEach(add);
+    return values;
+  }
+
+  function hasValues(variant, triggers) {
+    if (!triggers.length) return false;
+    var values = variantValues(variant);
+    return triggers.every(function (trigger) { return values.indexOf(normalize(trigger)) !== -1; });
+  }
+
+  function postAdd(variantIds, requestSections) {
+    var ids = [].concat(variantIds).filter(Boolean).map(function (id) { return Number(id); });
+    var payload = ids.length > 1
+      ? { items: ids.map(function (id) { return { id: id, quantity: 1 }; }) }
+      : { id: ids[0], quantity: 1 };
     if (requestSections) {
       payload.sections = 'cart-notification-product,cart-notification-button,cart-icon-bubble';
       payload.sections_url = window.location.pathname;
     }
     var url = (window.routes && window.routes.cart_add_url) || '/cart/add';
+    if (url.indexOf('.js') === -1) url += '.js';
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -519,7 +577,8 @@
 
   function revealCart(response) {
     var notification = document.querySelector('cart-notification');
-    if (notification && response.sections && typeof notification.renderContents === 'function') {
+    var several = response.items && response.items.length > 1;
+    if (!several && notification && response.key && response.sections && typeof notification.renderContents === 'function') {
       try {
         notification.renderContents(response);
         return;
@@ -527,6 +586,18 @@
         updateBubble(response);
         return;
       }
+    }
+    if (notification && response.sections) {
+      ['cart-notification-product', 'cart-notification-button', 'cart-icon-bubble'].forEach(function (id) {
+        var html = response.sections[id];
+        var slot = document.getElementById(id);
+        if (!html || !slot) return;
+        var parsed = new DOMParser().parseFromString(html, 'text/html');
+        var section = parsed.querySelector('.shopify-section');
+        if (section) slot.innerHTML = section.innerHTML;
+      });
+      if (typeof notification.open === 'function') notification.open();
+      return;
     }
     updateBubble(response);
   }

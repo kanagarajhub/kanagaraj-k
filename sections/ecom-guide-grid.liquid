@@ -68,6 +68,7 @@
   data-animate="{% if section.settings.enable_animation %}true{% else %}false{% endif %}"
   data-money-format="{{ shop.money_format | strip_html | escape }}"
   data-companion-id="{{ companion_id }}"
+  data-companion-handle="{{ companion.handle | escape }}"
   data-companion-title="{{ companion_title | escape }}"
   data-trigger-a="{{ section.settings.trigger_a | escape }}"
   data-trigger-b="{{ section.settings.trigger_b | escape }}"
@@ -164,6 +165,10 @@
                       "available": {{ variant.available | json }},
                       "price": {{ variant.price }},
                       "compareAtPrice": {% if variant.compare_at_price %}{{ variant.compare_at_price }}{% else %}null{% endif %},
+                      "title": {{ variant.title | json }},
+                      "option1": {{ variant.option1 | json }},
+                      "option2": {{ variant.option2 | json }},
+                      "option3": {{ variant.option3 | json }},
                       "options": [
                         {{ variant.option1 | json }}
                         {%- if variant.option2 != blank -%}, {{ variant.option2 | json }}{%- endif -%}
@@ -301,12 +306,12 @@
     { "type": "header", "content": "Automatic extra product" },
     {
       "type": "paragraph",
-      "content": "When the chosen variant includes both trigger values, the extra product is added to the cart too. Point this at Soft Winter Jacket."
+      "content": "The two boxes are option values, not option names. If the chosen variant contains both values, in any option and any order, the extra product is added too."
     },
     { "type": "product", "id": "companion_product", "label": "Auto-add product" },
     { "type": "text", "id": "companion_title", "label": "Auto-add product title", "default": "Soft Winter Jacket", "info": "Used to find the product if the picker above is empty." },
-    { "type": "text", "id": "trigger_a", "label": "First trigger value", "default": "Black" },
-    { "type": "text", "id": "trigger_b", "label": "Second trigger value", "default": "Medium" }
+    { "type": "text", "id": "trigger_a", "label": "First value", "default": "Black", "info": "Matched against the variant's option values. The option can be Color, Size, or anything else." },
+    { "type": "text", "id": "trigger_b", "label": "Second value", "default": "Medium", "info": "Matched the same way. Black then Medium, and Medium then Black, are the same combination." }
   ],
   "blocks": [
     {
