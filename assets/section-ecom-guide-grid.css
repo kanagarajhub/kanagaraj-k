@@ -40,13 +40,13 @@ html.gg-modal-open {
 }
 
 .gg-grid__inner {
-  padding: var(--gg-pad-top) var(--gg-gutter) var(--gg-pad-bottom);
+  padding: min(var(--gg-pad-top), 80px) max(16px, min(var(--gg-gutter), 48px)) min(var(--gg-pad-bottom), 96px);
 }
 
 .gg-grid__heading {
   margin: 0 0 28px;
   font-family: var(--font-heading-family);
-  font-size: clamp(28px, 3vw, var(--gg-heading-size));
+  font-size: clamp(28px, 3vw, min(var(--gg-heading-size), 48px));
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -60,7 +60,7 @@ html.gg-modal-open {
 .gg-grid__list {
   display: grid;
   grid-template-columns: repeat(var(--gg-columns-mobile), minmax(0, 1fr));
-  gap: var(--gg-gap);
+  gap: min(var(--gg-gap), 24px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -70,7 +70,7 @@ html.gg-modal-open {
   position: relative;
   aspect-ratio: var(--gg-ratio);
   background: #ececec;
-  border-radius: var(--gg-radius);
+  border-radius: min(var(--gg-radius), 12px);
   overflow: hidden;
 }
 
@@ -191,7 +191,7 @@ html.gg-modal-open {
 .gg-modal__dialog {
   position: relative;
   z-index: 1;
-  width: min(var(--gg-popup-width, 460px), 100%);
+  width: min(var(--gg-popup-width, 460px), calc(100vw - 32px));
   max-height: min(92vh, 760px);
   overflow: auto;
   padding: 22px 20px 18px;

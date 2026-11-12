@@ -49,7 +49,7 @@
 
 .gg-banner__brand {
   font-family: var(--font-heading-family);
-  font-size: var(--gg-brand-size);
+  font-size: min(var(--gg-brand-size), max(15px, 1.6vw));
   font-weight: 700;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -66,10 +66,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-width: min(420px, 42vw);
+  max-width: min(420px, 36vw);
   margin: 0;
   color: var(--gg-muted);
-  font-size: var(--gg-tagline-size);
+  font-size: min(var(--gg-tagline-size), max(13px, 1.2vw));
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: 1.35;
@@ -103,25 +103,9 @@
   display: none;
 }
 
+.gg-banner__scrim,
 .gg-banner__scrim:empty {
-  display: block;
-}
-
-.gg-banner__scrim {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(var(--gg-content-width) + var(--gg-gutter) + 180px);
-  max-width: 78%;
-  bottom: 0;
-  height: auto;
-  background: linear-gradient(
-    90deg,
-    var(--gg-bg) 0%,
-    var(--gg-bg) 86%,
-    transparent 100%
-  );
-  pointer-events: none;
+  display: none;
 }
 
 .gg-banner__content {
@@ -131,15 +115,10 @@
   padding: clamp(200px, 30vh, 270px) var(--gg-gutter) 72px;
 }
 
-.gg-banner--center .gg-banner__content {
-  margin-inline: auto;
-  text-align: center;
-}
-
 .gg-banner__heading {
   margin: 0 0 18px;
   font-family: var(--font-heading-family);
-  font-size: clamp(34px, 4.4vw, var(--gg-heading-size));
+  font-size: clamp(34px, 4.4vw, min(var(--gg-heading-size), 60px));
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -149,7 +128,7 @@
 .gg-banner__description {
   margin: 0 0 32px;
   max-width: 36ch;
-  font-size: var(--gg-body-size);
+  font-size: min(var(--gg-body-size), 18px);
   line-height: 1.55;
   color: var(--gg-text);
 }
@@ -167,7 +146,7 @@
 .gg-banner__strip-text {
   margin: 0;
   padding: 12px var(--gg-gutter);
-  font-size: var(--gg-strip-size);
+  font-size: min(var(--gg-strip-size), 14px);
   font-weight: 500;
   letter-spacing: 0.16em;
   line-height: 1.4;
@@ -367,6 +346,70 @@
   to { transform: translateX(-50%); }
 }
 
+@media screen and (min-width: 750px) {
+  .gg-banner__hero {
+    min-height: 0;
+  }
+
+  .gg-banner__art {
+    position: relative;
+    inset: auto;
+    height: auto;
+  }
+
+  .gg-banner__art svg,
+  .gg-banner__art img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .gg-banner__content {
+    position: absolute;
+    z-index: 2;
+    top: min(clamp(24%, var(--gg-place-y, 54%), 58%), calc(100% - 270px));
+    width: min(var(--gg-content-width), 480px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
+    max-width: min(var(--gg-content-width), 480px);
+    margin: 0;
+    padding: 0;
+    transform: translate(min(var(--gg-nudge-x, 0px), 40px), min(var(--gg-nudge-y, 0px), 16px));
+  }
+
+  .gg-banner--x-left .gg-banner__content {
+    left: max(16px, min(var(--gg-gutter), 5vw));
+    right: auto;
+  }
+
+  .gg-banner--x-center .gg-banner__content {
+    left: 50%;
+    right: auto;
+    transform: translate(calc(-50% + min(var(--gg-nudge-x, 0px), 40px)), min(var(--gg-nudge-y, 0px), 16px));
+  }
+
+  .gg-banner--x-right .gg-banner__content {
+    left: auto;
+    right: max(16px, min(var(--gg-gutter), 5vw));
+  }
+
+  .gg-banner--align-center .gg-banner__content,
+  .gg-banner--align-center .gg-banner__description {
+    text-align: center;
+  }
+
+  .gg-banner--align-center .gg-banner__description {
+    margin-inline: auto;
+  }
+
+  .gg-banner--align-right .gg-banner__content {
+    text-align: right;
+  }
+
+  .gg-banner--align-right .gg-banner__description {
+    margin-left: auto;
+  }
+}
+
 @media screen and (max-width: 749px) {
   .gg-header-bar .gg-banner__top {
     display: grid;
@@ -423,7 +466,7 @@
     inset: auto;
     order: 2;
     width: 100%;
-    height: 220px;
+    height: min(var(--gg-m-art, 220px), 70vw);
   }
 
   .gg-banner__art.has-mobile .gg-art-desktop {
@@ -440,38 +483,87 @@
     max-width: none;
     width: 100%;
     margin: 0;
-    padding: 26px 28px 16px;
+    padding: 26px min(var(--gg-m-pad-x, 28px), 9vw) min(var(--gg-m-space, 16px), 24px);
+    text-align: center;
+    transform: none;
+    left: auto;
+    right: auto;
+    top: auto;
+  }
+
+  .gg-banner--m-align-left .gg-banner__content,
+  .gg-banner--m-align-left .gg-banner__description {
+    text-align: left;
+  }
+
+  .gg-banner--m-align-left .gg-banner__description {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .gg-banner--m-align-center .gg-banner__content,
+  .gg-banner--m-align-center .gg-banner__description {
     text-align: center;
   }
 
+  .gg-banner--m-align-center .gg-banner__description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gg-banner--m-align-right .gg-banner__content,
+  .gg-banner--m-align-right .gg-banner__description {
+    text-align: right;
+  }
+
+  .gg-banner--m-align-right .gg-banner__description {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
   .gg-banner__heading {
-    font-size: 22px;
+    font-size: min(var(--gg-m-heading, 22px), 7vw);
     line-height: 1.15;
     letter-spacing: -0.03em;
     margin: 0 0 8px;
   }
 
   .gg-banner__description {
-    max-width: 34ch;
-    margin: 0 auto;
-    font-size: 12px;
+    max-width: min(34ch, 100%);
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: min(var(--gg-m-body, 12px), 3.8vw);
     line-height: 1.45;
-    text-align: center;
   }
 
   .gg-banner .gg-btn--shop {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 92px;
+    bottom: min(var(--gg-m-btn-bottom, 92px), calc(min(var(--gg-m-art, 220px), 70vw) - 56px));
     z-index: 2;
     width: max-content;
-    margin: 0 auto;
     min-height: 40px;
     padding: 11px 16px;
     font-size: 11px;
     letter-spacing: 0.12em;
     gap: 10px;
+  }
+
+  .gg-banner--m-btn-left .gg-btn--shop {
+    left: var(--gg-m-pad-x, 28px);
+    right: auto;
+    margin: 0;
+  }
+
+  .gg-banner--m-btn-center .gg-btn--shop {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .gg-banner--m-btn-right .gg-btn--shop {
+    left: auto;
+    right: var(--gg-m-pad-x, 28px);
+    margin: 0;
   }
 
   .gg-banner__strip-text {
