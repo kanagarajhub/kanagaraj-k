@@ -91,7 +91,7 @@
         "section_width": "full",
         "illustration": "shopify://shop_images/Group_1000008197.png",
         "illustration_mobile": "shopify://shop_images/Frame_1.png",
-        "image_ratio": "desktop",
+        "image_ratio": "auto",
         "show_arrow": true,
         "arrow_source": "default",
         "arrow_svg": "",
@@ -117,12 +117,12 @@
         "mobile_space_below": 16,
         "mobile_heading_size": 22,
         "mobile_body_size": 12,
-        "heading_size": 60,
-        "body_size": 17,
+        "heading_size": 65,
+        "body_size": 20,
         "shop_size": 13,
         "strip_size": 12,
         "content_width": 480,
-        "gutter": 40
+        "gutter": 44
       }
     },
     "ecom_guide_grid_ckELRr": {
