@@ -190,7 +190,7 @@
   justify-content: center;
   gap: 12px;
   min-height: 44px;
-  padding: 12px 18px;
+  padding: 12px 24px;
   border: 1px solid var(--gg-btn-bg);
   background: var(--gg-btn-bg);
   color: var(--gg-btn-text);
@@ -612,7 +612,7 @@
     letter-spacing: 0.12em;
     font-size: 9px;
   }
-}
+}ƒˇ
 
 @media (prefers-reduced-motion: reduce) {
   .gg-banner--enter .gg-banner__content > *,
