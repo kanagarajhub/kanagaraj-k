@@ -159,8 +159,8 @@
   margin: 0;
   padding: 12px var(--gg-gutter);
   font-size: var(--gg-strip-size);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   line-height: 1.4;
   text-align: center;
   text-transform: uppercase;
