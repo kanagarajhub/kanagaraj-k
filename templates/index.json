@@ -103,7 +103,7 @@
         "shop_text": "#ffffff",
         "shop_hover_background": "#ffffff",
         "shop_hover_text": "#111111",
-        "strip_background": "#f3f3f3",
+        "strip_background": "#F5F5F5",
         "strip_color": "#1a1a1a",
         "content_place_x": "left",
         "content_place_y": 54,
@@ -120,7 +120,7 @@
         "heading_size": 70,
         "body_size": 20,
         "shop_size": 13,
-        "strip_size": 12,
+        "strip_size": 14,
         "content_width": 480,
         "gutter": 48
       }
