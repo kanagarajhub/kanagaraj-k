@@ -397,8 +397,8 @@
     z-index: 2;
     align-self: end;
     top: auto;
-    width: min(var(--gg-content-width), 490px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
-    max-width: min(var(--gg-content-width), 490px);
+    width: min(var(--gg-content-width), 720px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
+    max-width: min(var(--gg-content-width), 720px);
     margin: 0 0 clamp(56px, calc(64px + (58% - var(--gg-place-y, 54%)) * 0.2), 120px);
     padding: 28px 32px 32px;
     background: rgba(var(--color-background), 0.94);
