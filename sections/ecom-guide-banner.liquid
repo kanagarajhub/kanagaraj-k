@@ -35,17 +35,43 @@
   aria-label="{{ section.settings.heading | escape }}"
 >
   <div class="gg-banner__hero">
-    <div class="gg-banner__art" aria-hidden="true">
-      {%- if section.settings.illustration != blank -%}
+    {%- liquid
+      assign desktop_image = section.settings.illustration
+      assign mobile_image = section.settings.illustration_mobile
+      if desktop_image == blank
+        assign desktop_image = mobile_image
+      endif
+      if mobile_image == blank
+        assign mobile_image = desktop_image
+      endif
+      assign separate_mobile = false
+      if section.settings.illustration != blank and section.settings.illustration_mobile != blank
+        assign separate_mobile = true
+      endif
+    -%}
+    <div class="gg-banner__art{% if separate_mobile %} has-mobile{% endif %}" aria-hidden="true">
+      {%- if desktop_image != blank -%}
         <img
-          src="{{ section.settings.illustration | image_url: width: 2000 }}"
-          srcset="{{ section.settings.illustration | image_url: width: 800 }} 800w, {{ section.settings.illustration | image_url: width: 1400 }} 1400w, {{ section.settings.illustration | image_url: width: 2000 }} 2000w"
+          class="gg-art-desktop"
+          src="{{ desktop_image | image_url: width: 2000 }}"
+          srcset="{{ desktop_image | image_url: width: 800 }} 800w, {{ desktop_image | image_url: width: 1400 }} 1400w, {{ desktop_image | image_url: width: 2000 }} 2000w"
           sizes="100vw"
           alt=""
-          width="{{ section.settings.illustration.width }}"
-          height="{{ section.settings.illustration.height }}"
+          width="{{ desktop_image.width }}"
+          height="{{ desktop_image.height }}"
           fetchpriority="high"
         >
+        {%- if separate_mobile -%}
+          <img
+            class="gg-art-mobile"
+            src="{{ mobile_image | image_url: width: 1200 }}"
+            srcset="{{ mobile_image | image_url: width: 600 }} 600w, {{ mobile_image | image_url: width: 900 }} 900w, {{ mobile_image | image_url: width: 1200 }} 1200w"
+            sizes="100vw"
+            alt=""
+            width="{{ mobile_image.width }}"
+            height="{{ mobile_image.height }}"
+          >
+        {%- endif -%}
       {%- elsif section.settings.show_line_art -%}
         {% render 'ecom-guide-illustration' %}
       {%- endif -%}
@@ -122,7 +148,8 @@
     { "type": "text", "id": "shop_link", "label": "Shop now link", "default": "#ecom-guide-grid" },
     { "type": "text", "id": "strip_text", "label": "Bottom bar text", "default": "Sustainable, ethically made clothes in sizes XXS to 6XL" },
     { "type": "header", "content": "Illustration" },
-    { "type": "image_picker", "id": "illustration", "label": "Custom illustration", "info": "Replaces the line-art placeholder. Upload the final artwork here." },
+    { "type": "image_picker", "id": "illustration", "label": "Desktop image", "info": "Shown on screens wider than 750px. Replaces the line-art placeholder." },
+    { "type": "image_picker", "id": "illustration_mobile", "label": "Mobile image", "info": "Shown on screens 750px and smaller. If empty, the desktop image is used." },
     { "type": "checkbox", "id": "show_line_art", "label": "Show line-art placeholder", "default": true },
     { "type": "header", "content": "Button animation" },
     { "type": "checkbox", "id": "show_arrow", "label": "Show arrow", "default": true },

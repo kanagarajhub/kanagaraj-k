@@ -364,25 +364,45 @@
         {%- if section.settings.gift_tagline != blank -%}
           <p class="gg-banner__tagline">{{ section.settings.gift_tagline | escape }}</p>
         {%- endif -%}
-        {%- if section.settings.gift_cta_label != blank -%}
-          <div class="gg-banner__actions">
-            <a
-              class="gg-btn gg-btn--choose gg-btn--{{ section.settings.gift_cta_animation }}"
-              href="{{ gift_cta_link }}"
-              style="--gg-btn-bg: {{ section.settings.gift_cta_background }}; --gg-btn-text: {{ section.settings.gift_cta_text }}; --gg-btn-hover-bg: {{ section.settings.gift_cta_hover_background }}; --gg-btn-hover-text: {{ section.settings.gift_cta_hover_text }};"
-              {% if gift_cta_link contains '#' %}data-gg-scroll{% endif %}
-            >
-              <span class="gg-btn__label">{{ section.settings.gift_cta_label | escape }}</span>
-              {%- unless section.settings.gift_cta_icon == 'none' -%}
-                {% render 'ecom-guide-arrow',
-                  source: section.settings.gift_cta_icon,
-                  svg: section.settings.gift_cta_svg,
-                  image: section.settings.gift_cta_image
-                %}
-              {%- endunless -%}
+        <div class="gg-header-bar__tools">
+          {%- if section.settings.gift_cta_label != blank -%}
+            <div class="gg-banner__actions">
+              <a
+                class="gg-btn gg-btn--choose gg-btn--{{ section.settings.gift_cta_animation }}"
+                href="{{ gift_cta_link }}"
+                style="--gg-btn-bg: {{ section.settings.gift_cta_background }}; --gg-btn-text: {{ section.settings.gift_cta_text }}; --gg-btn-hover-bg: {{ section.settings.gift_cta_hover_background }}; --gg-btn-hover-text: {{ section.settings.gift_cta_hover_text }};"
+                {% if gift_cta_link contains '#' %}data-gg-scroll{% endif %}
+              >
+                <span class="gg-btn__label">{{ section.settings.gift_cta_label | escape }}</span>
+                {%- unless section.settings.gift_cta_icon == 'none' -%}
+                  {% render 'ecom-guide-arrow',
+                    source: section.settings.gift_cta_icon,
+                    svg: section.settings.gift_cta_svg,
+                    image: section.settings.gift_cta_image
+                  %}
+                {%- endunless -%}
+              </a>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.show_cart and section.settings.show_store_header == false -%}
+            <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+              {%- if cart == empty -%}
+                <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
+              {%- else -%}
+                <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
+              {%- endif -%}
+              <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+              {%- if cart != empty -%}
+                <div class="cart-count-bubble">
+                  {%- if cart.item_count < 100 -%}
+                    <span aria-hidden="true">{{ cart.item_count }}</span>
+                  {%- endif -%}
+                  <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                </div>
+              {%- endif -%}
             </a>
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
       </div>
     </div>
     <script>
@@ -601,7 +621,7 @@
       "id": "show_cart",
       "label": "Show cart",
       "default": true,
-      "info": "Show or hide the cart icon in the store header."
+      "info": "Show or hide the cart icon on the guide bar. When the store header is on, the cart stays there instead."
     },
     {
       "type": "header",
