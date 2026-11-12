@@ -329,7 +329,7 @@
     endif
     assign show_guide_bar = false
     if section.settings.show_guide_bar
-      if section.settings.gift_brand_text != blank or section.settings.gift_tagline != blank or section.settings.gift_cta_label != blank
+      if section.settings.gift_brand_logo != blank or section.settings.gift_brand_text != blank or section.settings.gift_tagline != blank or section.settings.gift_cta_label != blank
         assign show_guide_bar = true
       endif
     endif
@@ -337,10 +337,10 @@
   {%- if show_guide_bar -%}
     {{ 'section-ecom-guide-banner.css' | asset_url | stylesheet_tag }}
     <div
-      class="gg-banner gg-header-bar"
-      style="--gg-text: {{ section.settings.gift_text_color }}; --gg-muted: {{ section.settings.gift_muted_color }}; --gg-brand-size: {{ section.settings.gift_brand_size }}px; --gg-tagline-size: {{ section.settings.gift_tagline_size }}px; --gg-top-bg: {{ section.settings.gift_bar_background }};"
+      class="gg-banner gg-header-bar color-{{ section.settings.gift_color_scheme }} gradient"
+      style="--gg-bg: var(--gradient-background); --gg-text: rgb(var(--color-foreground)); --gg-top-bg: var(--gradient-background); --gg-muted: {{ section.settings.gift_muted_color }}; --gg-brand-size: {{ section.settings.gift_brand_size }}px; --gg-logo-width: {{ section.settings.gift_brand_logo_width }}px; --gg-tagline-size: {{ section.settings.gift_tagline_size }}px; --gg-cta-size: {{ section.settings.gift_cta_size }}px;"
     >
-      <div class="gg-banner__top" style="background: {{ section.settings.gift_bar_background }};">
+      <div class="gg-banner__top">
         {%- unless section.settings.show_store_header -%}
           <div class="gg-header-bar__menu">
             {% render 'header-drawer',
@@ -350,14 +350,28 @@
             %}
           </div>
         {%- endunless -%}
-        {%- if section.settings.gift_brand_text != blank -%}
-          {%- if section.settings.gift_brand_link != blank -%}
-            <a class="gg-banner__brand{% if section.settings.gift_brand_uppercase %} is-upper{% endif %}" href="{{ section.settings.gift_brand_link }}">
+        {%- if section.settings.gift_brand_logo != blank or section.settings.gift_brand_text != blank -%}
+          {%- capture brand_mark -%}
+            {%- if section.settings.gift_brand_logo != blank -%}
+              {{
+                section.settings.gift_brand_logo
+                | image_url: width: 360
+                | image_tag:
+                  class: 'gg-banner__brand-logo',
+                  widths: '80, 160, 240, 360',
+                  alt: section.settings.gift_brand_text
+              }}
+            {%- else -%}
               {{ section.settings.gift_brand_text | escape }}
+            {%- endif -%}
+          {%- endcapture -%}
+          {%- if section.settings.gift_brand_link != blank -%}
+            <a class="gg-banner__brand{% if section.settings.gift_brand_logo == blank and section.settings.gift_brand_uppercase %} is-upper{% endif %}" href="{{ section.settings.gift_brand_link }}">
+              {{ brand_mark }}
             </a>
           {%- else -%}
-            <span class="gg-banner__brand{% if section.settings.gift_brand_uppercase %} is-upper{% endif %}">
-              {{ section.settings.gift_brand_text | escape }}
+            <span class="gg-banner__brand{% if section.settings.gift_brand_logo == blank and section.settings.gift_brand_uppercase %} is-upper{% endif %}">
+              {{ brand_mark }}
             </span>
           {%- endif -%}
         {%- endif -%}
@@ -640,6 +654,22 @@
       "default": "TISSO VISON"
     },
     {
+      "type": "image_picker",
+      "id": "gift_brand_logo",
+      "label": "Brand logo",
+      "info": "Replaces the brand text. The brand name is used as the image description."
+    },
+    {
+      "type": "range",
+      "id": "gift_brand_logo_width",
+      "label": "Logo width",
+      "min": 40,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
       "type": "url",
       "id": "gift_brand_link",
       "label": "Brand link"
@@ -706,16 +736,19 @@
       "info": "Used when Button arrow is Image."
     },
     {
-      "type": "color",
-      "id": "gift_bar_background",
-      "label": "Bar background",
-      "default": "#FFFFFF"
+      "type": "header",
+      "content": "Color scheme"
     },
     {
-      "type": "color",
-      "id": "gift_text_color",
-      "label": "Brand color",
-      "default": "#111111"
+      "type": "color_scheme",
+      "id": "gift_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "info": "Sets the bar background and brand color. The tagline and button use the extra colors below."
+    },
+    {
+      "type": "header",
+      "content": "Extra colors"
     },
     {
       "type": "color",
@@ -762,10 +795,20 @@
       "id": "gift_tagline_size",
       "label": "Tagline size",
       "min": 12,
-      "max": 15,
+      "max": 25,
       "step": 1,
       "unit": "px",
       "default": 13
+    },
+    {
+      "type": "range",
+      "id": "gift_cta_size",
+      "label": "Button size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "select",

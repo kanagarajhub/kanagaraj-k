@@ -10,14 +10,14 @@
 
 {%- style -%}
   #shopify-section-{{ section.id }} .gg-banner {
-    --gg-bg: {{ section.settings.background }};
-    --gg-text: {{ section.settings.text_color }};
+    --gg-bg: var(--gradient-background);
+    --gg-text: rgb(var(--color-foreground));
     --gg-strip-bg: {{ section.settings.strip_background }};
     --gg-strip-text: {{ section.settings.strip_color }};
     --gg-heading-size: {{ section.settings.heading_size }}px;
     --gg-body-size: {{ section.settings.body_size }}px;
+    --gg-shop-size: {{ section.settings.shop_size }}px;
     --gg-strip-size: {{ section.settings.strip_size }}px;
-    --gg-hero-min: {{ section.settings.hero_height }}px;
     --gg-gutter: {{ section.settings.gutter }}px;
     --gg-content-width: {{ section.settings.content_width }}px;
     --gg-place-y: {{ section.settings.content_place_y }}%;
@@ -27,7 +27,6 @@
     --gg-m-space: {{ section.settings.mobile_space_below }}px;
     --gg-m-heading: {{ section.settings.mobile_heading_size }}px;
     --gg-m-body: {{ section.settings.mobile_body_size }}px;
-    --gg-m-art: {{ section.settings.mobile_art_height }}px;
     --gg-m-btn-bottom: {{ section.settings.mobile_button_bottom }}px;
   }
 
@@ -40,7 +39,7 @@
 {%- endstyle -%}
 
 <section
-  class="gg-banner gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.description_mobile != blank %} gg-banner--mobile-copy{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
+  class="gg-banner color-{{ section.settings.color_scheme }} gradient gg-banner--x-{{ section.settings.content_place_x }} gg-banner--align-{{ section.settings.content_alignment }} gg-banner--m-align-{{ section.settings.mobile_alignment }} gg-banner--m-btn-{{ section.settings.mobile_button_place }}{% if section.settings.description_mobile != blank %} gg-banner--mobile-copy{% endif %}{% if section.settings.enable_entrance %} gg-banner--enter{% endif %}"
   aria-label="{{ section.settings.heading | escape }}"
 >
   <div class="gg-banner__hero">
@@ -184,9 +183,9 @@
     },
     { "type": "checkbox", "id": "enable_entrance", "label": "Animate text on load", "default": true },
     { "type": "checkbox", "id": "strip_marquee", "label": "Scroll the bottom bar", "default": false },
-    { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
+    { "type": "header", "content": "Color scheme" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1", "info": "Sets the background and text. Buttons and the bottom bar use the extra colors below." },
+    { "type": "header", "content": "Extra colors" },
     { "type": "color", "id": "shop_background", "label": "Shop now background", "default": "#111111" },
     { "type": "color", "id": "shop_text", "label": "Shop now text", "default": "#FFFFFF" },
     { "type": "color", "id": "shop_hover_background", "label": "Shop now hover background", "default": "#FFFFFF" },
@@ -294,13 +293,12 @@
     { "type": "range", "id": "mobile_space_below", "min": 8, "max": 24, "step": 2, "unit": "px", "label": "Space under the text", "default": 16 },
     { "type": "range", "id": "mobile_heading_size", "min": 18, "max": 26, "step": 1, "unit": "px", "label": "Heading size", "default": 22 },
     { "type": "range", "id": "mobile_body_size", "min": 11, "max": 14, "step": 1, "unit": "px", "label": "Description size", "default": 12 },
-    { "type": "range", "id": "mobile_art_height", "min": 180, "max": 260, "step": 10, "unit": "px", "label": "Image height", "default": 220 },
     { "type": "header", "content": "Desktop type and spacing" },
-    { "type": "range", "id": "heading_size", "min": 40, "max": 60, "step": 1, "unit": "px", "label": "Heading size", "default": 52 },
-    { "type": "range", "id": "body_size", "min": 13, "max": 18, "step": 1, "unit": "px", "label": "Description size", "default": 15 },
+    { "type": "range", "id": "heading_size", "min": 40, "max": 70, "step": 1, "unit": "px", "label": "Heading size", "default": 52 },
+    { "type": "range", "id": "body_size", "min": 13, "max": 28, "step": 1, "unit": "px", "label": "Description size", "default": 15 },
+    { "type": "range", "id": "shop_size", "min": 13, "max": 23, "step": 1, "unit": "px", "label": "Shop now size", "default": 13 },
     { "type": "range", "id": "strip_size", "min": 10, "max": 14, "step": 1, "unit": "px", "label": "Bottom bar size", "default": 12 },
-    { "type": "range", "id": "hero_height", "min": 480, "max": 680, "step": 10, "unit": "px", "label": "Desktop banner height", "default": 580 },
-    { "type": "range", "id": "content_width", "min": 320, "max": 480, "step": 10, "unit": "px", "label": "Text width", "default": 440 },
+    { "type": "range", "id": "content_width", "min": 320, "max": 490, "step": 10, "unit": "px", "label": "Text width", "default": 440 },
     { "type": "range", "id": "gutter", "min": 16, "max": 48, "step": 2, "unit": "px", "label": "Side spacing", "default": 40 }
   ],
   "presets": [

@@ -60,6 +60,14 @@
   text-transform: uppercase;
 }
 
+.gg-banner__brand-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(var(--gg-logo-width, 120px), 18vw);
+  aspect-ratio: auto;
+}
+
 .gg-banner__tagline {
   position: absolute;
   left: 50%;
@@ -77,7 +85,7 @@
 
 .gg-banner__hero {
   position: relative;
-  min-height: var(--gg-hero-min);
+  min-height: 0;
   background: var(--gg-bg);
   overflow: hidden;
 }
@@ -91,11 +99,14 @@
 
 .gg-banner__art svg,
 .gg-banner__art img {
-  width: 100%;
-  height: 100%;
   display: block;
-  object-fit: cover;
-  object-position: center top;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 72vh;
+  margin-inline: auto;
+  object-fit: contain;
+  object-position: center center;
 }
 
 .gg-banner__art .gg-art-mobile {
@@ -246,6 +257,7 @@
 }
 
 .gg-btn--choose {
+  font-size: var(--gg-cta-size, 12px);
   --gg-btn-bg: #ffe135;
   --gg-btn-text: #111;
   --gg-btn-hover-bg: #111;
@@ -256,7 +268,7 @@
 .gg-btn--shop {
   padding-inline: 22px;
   min-height: 48px;
-  font-size: 13px;
+  font-size: var(--gg-shop-size, 13px);
 }
 
 .gg-btn--fill::before {
@@ -357,26 +369,22 @@
   .gg-banner__art {
     position: relative;
     inset: auto;
-    height: auto;
-  }
-
-  .gg-banner__art svg,
-  .gg-banner__art img {
     width: 100%;
     height: auto;
-    object-fit: contain;
-    object-position: center center;
   }
 
-  .gg-banner__art.is-placeholder {
-    height: var(--gg-hero-min, 580px);
+  .gg-banner__art .gg-art-desktop {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 72vh;
   }
 
   .gg-banner__art.is-placeholder .gg-art-desktop.placeholder-svg {
-    position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: none;
+    aspect-ratio: 16 / 9;
     background: rgba(var(--color-foreground), 0.04);
   }
 
@@ -384,8 +392,8 @@
     position: absolute;
     z-index: 2;
     top: min(clamp(24%, var(--gg-place-y, 54%), 58%), calc(100% - 270px));
-    width: min(var(--gg-content-width), 480px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
-    max-width: min(var(--gg-content-width), 480px);
+    width: min(var(--gg-content-width), 490px, calc(100% - (max(16px, min(var(--gg-gutter), 48px)) * 2)));
+    max-width: min(var(--gg-content-width), 490px);
     margin: 0;
     padding: 0;
     transform: translate(min(var(--gg-nudge-x, 0px), 40px), min(var(--gg-nudge-y, 0px), 16px));
@@ -454,6 +462,11 @@
     text-align: center;
   }
 
+  .gg-header-bar .gg-banner__brand-logo {
+    max-width: min(var(--gg-logo-width, 120px), 42vw);
+    height: auto;
+  }
+
   .gg-header-bar .gg-banner__tagline,
   .gg-header-bar .gg-banner__actions {
     display: none;
@@ -481,7 +494,7 @@
     inset: auto;
     order: 2;
     width: 100%;
-    height: min(var(--gg-m-art, 220px), 70vw);
+    height: auto;
   }
 
   .gg-banner__art .gg-art-desktop {
@@ -490,9 +503,17 @@
 
   .gg-banner__art .gg-art-mobile {
     display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 46vh;
+    object-fit: contain;
+  }
+
+  .gg-banner__art.is-placeholder-mobile .gg-art-mobile.placeholder-svg {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-height: none;
+    aspect-ratio: 4 / 3;
   }
 
   .gg-banner__content {
@@ -564,7 +585,7 @@
 
   .gg-banner .gg-btn--shop {
     position: absolute;
-    bottom: min(var(--gg-m-btn-bottom, 92px), calc(min(var(--gg-m-art, 220px), 70vw) - 56px));
+    bottom: var(--gg-m-btn-bottom, 92px);
     z-index: 2;
     width: max-content;
     min-height: 40px;

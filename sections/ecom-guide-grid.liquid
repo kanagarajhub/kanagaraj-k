@@ -32,8 +32,8 @@
 
 {%- style -%}
   #shopify-section-{{ section.id }} .gg-grid {
-    --gg-bg: {{ section.settings.background }};
-    --gg-text: {{ section.settings.heading_color }};
+    --gg-bg: var(--gradient-background);
+    --gg-text: rgb(var(--color-foreground));
     --gg-heading-size: {{ section.settings.heading_size }}px;
     --gg-gap: {{ section.settings.gap }}px;
     --gg-columns: {{ section.settings.columns_desktop }};
@@ -62,7 +62,7 @@
 
 <section
   id="ecom-guide-grid"
-  class="gg-grid{% if section.settings.heading_alignment == 'center' %} gg-grid--center{% endif %}{% if section.settings.enable_animation %} gg-grid--animate{% endif %}"
+  class="gg-grid color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading_alignment == 'center' %} gg-grid--center{% endif %}{% if section.settings.enable_animation %} gg-grid--animate{% endif %}"
   data-ecom-guide
   data-section-id="{{ section.id }}"
   data-animate="{% if section.settings.enable_animation %}true{% else %}false{% endif %}"
@@ -239,10 +239,10 @@
         { "value": "center", "label": "Center" }
       ]
     },
-    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#161616" },
     { "type": "range", "id": "heading_size", "min": 28, "max": 48, "step": 1, "unit": "px", "label": "Heading size", "default": 36 },
+    { "type": "header", "content": "Color scheme" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1", "info": "Sets the background and heading. Buttons, cards, and the popup use the extra colors below." },
     { "type": "header", "content": "Grid" },
-    { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
     { "type": "range", "id": "columns_desktop", "min": 2, "max": 4, "step": 1, "label": "Columns on desktop", "default": 3 },
     {
       "type": "select",
@@ -271,14 +271,8 @@
     { "type": "range", "id": "padding_top", "min": 24, "max": 80, "step": 4, "unit": "px", "label": "Padding top", "default": 56 },
     { "type": "range", "id": "padding_bottom", "min": 32, "max": 96, "step": 4, "unit": "px", "label": "Padding bottom", "default": 72 },
     { "type": "checkbox", "id": "enable_animation", "label": "Animate cards into view", "default": true },
-    { "type": "color", "id": "plus_background", "label": "Plus button background", "default": "#FFFFFF" },
-    { "type": "color", "id": "plus_color", "label": "Plus button icon", "default": "#111111" },
     { "type": "header", "content": "Popup" },
     { "type": "range", "id": "popup_width", "min": 320, "max": 520, "step": 10, "unit": "px", "label": "Popup width", "default": 460 },
-    { "type": "color", "id": "popup_background", "label": "Popup background", "default": "#FFFFFF" },
-    { "type": "color", "id": "popup_text", "label": "Popup text", "default": "#161616" },
-    { "type": "color", "id": "accent_color", "label": "Selected option accent", "default": "#2F6BFF" },
-    { "type": "color", "id": "overlay_color", "label": "Overlay", "default": "#6E6E6E" },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 70, "step": 1, "unit": "%", "label": "Overlay opacity", "default": 46 },
     {
       "type": "select",
@@ -300,6 +294,13 @@
     { "type": "text", "id": "choose_prompt", "label": "Size prompt", "default": "Choose your size" },
     { "type": "text", "id": "close_label", "label": "Close label", "default": "Close" },
     { "type": "text", "id": "placeholder_message", "label": "Message when no product is selected", "default": "Select a product for this block in the theme editor to add it to the cart." },
+    { "type": "header", "content": "Extra colors" },
+    { "type": "color", "id": "plus_background", "label": "Plus button background", "default": "#FFFFFF" },
+    { "type": "color", "id": "plus_color", "label": "Plus button icon", "default": "#111111" },
+    { "type": "color", "id": "popup_background", "label": "Popup background", "default": "#FFFFFF" },
+    { "type": "color", "id": "popup_text", "label": "Popup text", "default": "#161616" },
+    { "type": "color", "id": "accent_color", "label": "Selected option accent", "default": "#2F6BFF" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay", "default": "#6E6E6E" },
     { "type": "color", "id": "button_background", "label": "Add to cart background", "default": "#111111" },
     { "type": "color", "id": "button_text", "label": "Add to cart text", "default": "#FFFFFF" },
     { "type": "color", "id": "button_hover_background", "label": "Add to cart hover background", "default": "#FFFFFF" },
