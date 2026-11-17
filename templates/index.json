@@ -188,7 +188,7 @@
         "heading_alignment": "left",
         "heading_size": 36,
         "color_scheme": "scheme-1",
-        "section_width": "full",
+        "section_width": "container",
         "columns_desktop": 3,
         "columns_mobile": "2",
         "image_ratio": "photo",
